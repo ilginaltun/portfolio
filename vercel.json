@@ -1,15 +1,9 @@
 {
-  "version": 2,
-  "builds": [
+  "redirects": [
     {
-      "src": "+kod/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/+kod/$1"
+      "source": "/",
+      "destination": "/+kod/",
+      "permanent": false
     }
   ]
 }

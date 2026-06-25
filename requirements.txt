@@ -1,9 +1,0 @@
-flask
-flask-cors
-werkzeug
-tensorflow
-torch
-whisperx
-openai-whisper
-librosa
-numpy
