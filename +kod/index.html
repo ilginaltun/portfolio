@@ -1133,8 +1133,11 @@
           // Darken the background
           const overlay = document.getElementById('dark-overlay');
           if (overlay) {
-             const currentOpacity = parseFloat(overlay.style.opacity || 0);
-             overlay.style.opacity = Math.min(currentOpacity + 0.3, 0.9).toString();
+             let currentAlpha = overlay.dataset.alpha ? parseFloat(overlay.dataset.alpha) : 0.65;
+             currentAlpha = Math.min(currentAlpha + 0.15, 1.0);
+             overlay.dataset.alpha = currentAlpha;
+             overlay.style.background = `rgba(0, 0, 0, ${currentAlpha})`;
+             overlay.style.opacity = '1';
           }
 
           for (let i = 0; i < 150; i++) {
