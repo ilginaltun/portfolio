@@ -530,7 +530,9 @@
       margin-right: 8px;
       color: #fff;
       font-weight: 600;
-    @media (max-width: 768px) {
+    }
+
+    @media (max-width: 1024px) {
       .popup {
         width: 90vw !important;
         height: 80vh !important;
@@ -1306,6 +1308,13 @@
       if (!popup) return;
 
       if (popup.style.display !== 'flex') {
+        // If it's minimized in the dock, restore it
+        const dockItem = document.querySelector(`.dock-item[data-target="${id}"]`);
+        if (dockItem) {
+          dockItem.click();
+          return;
+        }
+
         popup.style.display = 'flex';
 
         if (popup.classList.contains('browser-chrome')) {
@@ -1314,8 +1323,13 @@
 
         if (!popup.dataset.initialized) {
           popup.dataset.initialized = 'true';
-          popup.style.left = defaultLeft;
-          popup.style.top = defaultTop;
+          if (window.innerWidth < 1024) {
+            popup.style.left = '50%';
+            popup.style.top = '50%';
+          } else {
+            popup.style.left = defaultLeft;
+            popup.style.top = defaultTop;
+          }
         }
 
         // Apply exact MacOS Scale effect from the source icon position
