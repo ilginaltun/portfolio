@@ -700,13 +700,14 @@
       <div class="window-content word-processor">
         <h1>ILGIN ALTUN</h1>
         <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 16px;">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-          est laborum.</p>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem
-          aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <div class="en">
+          <p>Hi, I'm Ilgın Altun. I graduated from Yeditepe University with a degree in Architecture, and I am currently pursuing a Master's degree in Architectural Design Computing at Istanbul Technical University (ITU).</p>
+          <p>I am passionate about exploring the intersection of architecture, technology, and computation to build innovative design solutions.</p>
+        </div>
+        <div class="tr">
+          <p>Merhaba, ben Ilgın Altun. Yeditepe Üniversitesi Mimarlık bölümünden mezun oldum ve şu anda İstanbul Teknik Üniversitesi (İTÜ)'nde Mimari Tasarımda Bilişim alanında yüksek lisans yapıyorum.</p>
+          <p>Mimarlık, teknoloji ve bilişimin kesiştiği noktalarda yenilikçi tasarım çözümleri üretmek üzerine tutkuyla çalışıyorum.</p>
+        </div>
         <br>
         <strong>Skills:</strong> HTML/CSS, JavaScript, Python, Machine Learning, Data Analysis, UI Design
       </div>
@@ -1122,24 +1123,32 @@
             style.id = 'emoji-style';
             style.innerHTML = `
               @keyframes emojiFall {
-                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+                0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(120vh) rotate(720deg); opacity: 0; }
               }
             `;
             document.head.appendChild(style);
           }
 
-          for (let i = 0; i < 40; i++) {
+          // Darken the background
+          const overlay = document.getElementById('dark-overlay');
+          if (overlay) {
+             const currentOpacity = parseFloat(overlay.style.opacity || 0);
+             overlay.style.opacity = Math.min(currentOpacity + 0.3, 0.9).toString();
+          }
+
+          for (let i = 0; i < 150; i++) {
             const emoji = document.createElement('div');
             emoji.innerText = '🥲';
             emoji.style.position = 'fixed';
             emoji.style.left = Math.random() * 100 + 'vw';
             emoji.style.top = '-50px';
-            emoji.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            emoji.style.fontSize = (Math.random() * 40 + 20) + 'px';
             emoji.style.zIndex = '9999';
             emoji.style.pointerEvents = 'none';
-            const duration = Math.random() * 3 + 2;
-            const delay = Math.random() * 1.5;
+            emoji.style.filter = 'drop-shadow(0 0 10px rgba(0,0,0,0.5))';
+            const duration = Math.random() * 4 + 2;
+            const delay = Math.random() * 3;
             emoji.style.animation = `emojiFall ${duration}s linear ${delay}s forwards`;
             document.body.appendChild(emoji);
             setTimeout(() => emoji.remove(), (duration + delay) * 1000 + 100);
