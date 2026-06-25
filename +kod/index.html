@@ -1057,8 +1057,8 @@
       { id: 'how', en: 'how?', tr: 'nasıl?', img: 'blue_folder.png' },
       { id: 'who', en: 'who?', tr: 'kim?', img: 'blue_folder.png' },
       { id: 'what', en: 'what?', tr: 'ne?', img: 'blue_folder.png' },
-      { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' },
-      { id: 'sources', en: 'sources', tr: 'kaynaklar', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
+      { id: 'sources', en: 'sources', tr: 'kaynaklar', img: 'blue_folder.png' },
+      { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
     ];
 
     const desktopContainer = document.getElementById('desktop-folders');
@@ -1315,7 +1315,7 @@
       logDiv.innerHTML = '';
 
       if (projId === 4) {
-        await typeWriter("> Uploading " + filename + " to CRNN model...", logDiv, 30);
+        await typeWriter("> Uploading " + filename + " to CRNN model...", logDiv, 5);
 
         const formData = new FormData();
         formData.append('file', fileObj);
@@ -1335,7 +1335,7 @@
           }
 
           logDiv.innerHTML += '<br><br>> Audio processed. Extracting predictions...';
-          await new Promise(r => setTimeout(r, 600));
+          await new Promise(r => setTimeout(r, 100));
 
           let predHtml = '<br><br>> Predictions:<br>';
           data.predictions.forEach((p, idx) => {
@@ -1348,7 +1348,7 @@
         }
 
       } else if (projId === 5) {
-        await typeWriter("> Uploading " + filename + " to Whisper model...", logDiv, 30);
+        await typeWriter("> Uploading " + filename + " to Whisper model...", logDiv, 5);
         logDiv.innerHTML += '<br><br>> <span style="color:#ffbd2e;">Lütfen bekleyin... Ses dosyasının uzunluğuna göre bu işlem birkaç dakika sürebilir (PyTorch aktif).</span>';
 
         const formData = new FormData();
@@ -1379,8 +1379,8 @@
             else if (lineText.includes('Konuşmacı 2')) coloredText = lineText.replace('Konuşmacı 2', '<span style="color:#27c93f;">Konuşmacı 2</span>');
             else coloredText = lineText.replace('KONUŞMACI', '<span style="color:#00e5ff;">KONUŞMACI</span>');
 
-            await typeWriterHTML(`<strong>${coloredText}</strong>`, lineEl, 15);
-            await new Promise(r => setTimeout(r, 400));
+            await typeWriterHTML(`<strong>${coloredText}</strong>`, lineEl, 2);
+            await new Promise(r => setTimeout(r, 30));
           }
 
           logDiv.innerHTML += '<br><br>> <strong style="color:#fff;">✓ Transkripsiyon bitti.</strong>';
