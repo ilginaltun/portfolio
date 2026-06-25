@@ -1168,6 +1168,8 @@
       openPopup('popup-try-project', '50%', '50%', e);
     }
 
+    let currentSimulationTarget = null;
+
     function openSourcesPopup(target, e) {
       currentSimulationTarget = target;
       openPopup('popup-sources', '50%', '50%', e);
@@ -1176,7 +1178,12 @@
     async function useSourceFile(filename) {
       closePopup('popup-sources');
       const targetId = currentSimulationTarget;
-      if (!targetId) return;
+      
+      // If opened from desktop instead of terminal, we don't have a target
+      if (!targetId) {
+        alert("Lütfen dosyayı test etmek için önce 'sound_map' veya 'sound_detection' klasörünü açın ve 'Select from sources/' butonuna tıklayın!");
+        return;
+      }
 
       const log = document.getElementById(`sim-log-${targetId}`);
       const out = document.getElementById(`sim-output-${targetId}`);
