@@ -909,9 +909,9 @@
       `<img src="file_icon.png" alt="file">`,
       `<img src="file_pink.png" alt="file">`,
       `<img src="file_orange.png" alt="file">`,
-      `<img src="file_icon kopyası.png" alt="file">`,
-      `<img src="file_icon kopyası 2.png" alt="file">`,
-      `<img src="file_icon kopyası 3.png" alt="file">`
+      `<img src="file_icon_1.png" alt="file">`,
+      `<img src="file_icon_2.png" alt="file">`,
+      `<img src="file_icon_3.png" alt="file">`
     ];
 
     const scatterFiles = [
@@ -1272,7 +1272,7 @@
         const formData = new FormData();
         formData.append('file', fileObj);
 
-        const BACKEND_URL = 'https://ilgonikoli-portfolio_backend.hf.space';
+        const BACKEND_URL = 'https://ilgonikoli-portfolio-backend.hf.space';
 
         try {
           const response = await fetch(BACKEND_URL + '/api/predict', {
@@ -1306,9 +1306,7 @@
         const formData = new FormData();
         formData.append('file', fileObj);
 
-        // Sunucuyu Vercel'den ayırdığında buraya yeni sunucunun (Render, HuggingFace) adresini yazmalısın.
-        const BACKEND_URL = 'http://127.0.0.1:5000';
-
+        const BACKEND_URL = 'https://ilgonikoli-portfolio-backend.hf.space';
         try {
           const response = await fetch(BACKEND_URL + '/api/transcribe', {
             method: 'POST',
