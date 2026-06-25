@@ -1138,6 +1138,13 @@
              overlay.dataset.alpha = currentAlpha;
              overlay.style.background = `rgba(0, 0, 0, ${currentAlpha})`;
              overlay.style.opacity = '1';
+             overlay.style.zIndex = '50'; // Cover the scattered files
+             
+             // Bring files back to front after emojis finish (max 9 seconds)
+             if (window.emojiOverlayTimeout) clearTimeout(window.emojiOverlayTimeout);
+             window.emojiOverlayTimeout = setTimeout(() => {
+                overlay.style.zIndex = '5';
+             }, 9200);
           }
 
           for (let i = 0; i < 150; i++) {
