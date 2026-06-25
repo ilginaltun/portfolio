@@ -77,6 +77,7 @@ def api_transcribe():
 
 if __name__ == '__main__':
     print("="*50)
-    print("🚀 Başlatılıyor... Uygulamanız http://127.0.0.1:5000 adresinde yayında!")
+    print("🚀 Başlatılıyor... Uygulamanız yayında!")
     print("="*50)
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 7860))
+    app.run(host='0.0.0.0', debug=True, port=port)
