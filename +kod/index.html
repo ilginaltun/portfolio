@@ -796,11 +796,10 @@
 
         <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;"
           id="upload-box-4">
-          <label
-            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
-            Upload Audio File
-            <input type="file" style="display:none;" onchange="runSimulation(4, this.files[0])">
-          </label>
+          <button onclick="openSourcesPopup(4, event)"
+            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold; border: none; font-family: inherit; font-size: 14px;">
+            Select from sources/
+          </button>
         </div>
 
         <div id="sim-output-4" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
@@ -826,11 +825,10 @@
 
         <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;"
           id="upload-box-5">
-          <label
-            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
-            Upload Audio File
-            <input type="file" style="display:none;" onchange="runSimulation(5, this.files[0])">
-          </label>
+          <button onclick="openSourcesPopup(5, event)"
+            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold; border: none; font-family: inherit; font-size: 14px;">
+            Select from sources/
+          </button>
         </div>
 
         <div id="sim-output-5" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
@@ -868,6 +866,26 @@
             </svg>
           </span>
           +90 531 925 18 03
+        </div>
+      </div>
+    </div>
+
+    <!-- SOURCES -->
+    <div class="popup" id="popup-sources" style="width: 380px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-sources')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">sources/</div>
+      </div>
+      <div class="window-content finder-list">
+        <div class="list-row clickable-row" onclick="useSourceFile('deneme1.mp3')">
+          <span class="icon">🎵</span> deneme1.mp3
+        </div>
+        <div class="list-row clickable-row" onclick="useSourceFile('deneme2.mp3')">
+          <span class="icon">🎵</span> deneme2.mp3
         </div>
       </div>
     </div>
@@ -1039,7 +1057,8 @@
       { id: 'how', en: 'how?', tr: 'nasıl?', img: 'blue_folder.png' },
       { id: 'who', en: 'who?', tr: 'kim?', img: 'blue_folder.png' },
       { id: 'what', en: 'what?', tr: 'ne?', img: 'blue_folder.png' },
-      { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
+      { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' },
+      { id: 'sources', en: 'sources', tr: 'kaynaklar', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
     ];
 
     const desktopContainer = document.getElementById('desktop-folders');
@@ -1121,7 +1140,8 @@
           { id: 'popup-photo', left: '50vw', top: '75vh' }
         ],
         'what': [{ id: 'popup-what', left: '74vw', top: '25vh' }],
-        'contact': [{ id: 'popup-contact', left: '80vw', top: '70vh' }]
+        'contact': [{ id: 'popup-contact', left: '80vw', top: '70vh' }],
+        'sources': [{ id: 'popup-sources', left: '50vw', top: '25vh' }]
       };
 
       document.querySelectorAll('.folder-wrapper').forEach(folder => {
@@ -1146,6 +1166,34 @@
         closePopup('popup-try-project');
       };
       openPopup('popup-try-project', '50%', '50%', e);
+    }
+
+    function openSourcesPopup(target, e) {
+      currentSimulationTarget = target;
+      openPopup('popup-sources', '50%', '50%', e);
+    }
+
+    async function useSourceFile(filename) {
+      closePopup('popup-sources');
+      const targetId = currentSimulationTarget;
+      if (!targetId) return;
+
+      const log = document.getElementById(`sim-log-${targetId}`);
+      const out = document.getElementById(`sim-output-${targetId}`);
+      out.style.display = 'block';
+      document.getElementById(`upload-box-${targetId}`).style.display = 'none';
+      log.innerHTML = `> Downloading ${filename} from sources/ to terminal...<br>`;
+
+      try {
+        const response = await fetch(`sources/${filename}`);
+        if (!response.ok) throw new Error('File not found in sources folder. Make sure you added it!');
+        const blob = await response.blob();
+        const file = new File([blob], filename, { type: 'audio/mpeg' });
+        runSimulation(targetId, file);
+      } catch (err) {
+        log.innerHTML += `<br><span style="color: #ff5f56;">> Error: ${err.message}</span>`;
+        document.getElementById(`upload-box-${targetId}`).style.display = 'block';
+      }
     }
 
     function openPopup(id, defaultLeft = '50%', defaultTop = '50%', sourceEvent = null) {
