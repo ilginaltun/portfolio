@@ -548,6 +548,7 @@
       left: 50%;
       transform: translateX(-50%);
       height: 60px;
+      min-width: 70px; /* Always at least one icon wide */
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(15px);
@@ -555,15 +556,12 @@
       border-radius: 20px;
       display: flex;
       align-items: center;
+      justify-content: center; /* Center items if few */
       padding: 0 10px;
       gap: 10px;
       z-index: 1000;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
-    }
-
-    .mac-dock:empty {
-      display: none;
     }
 
     .dock-item {
