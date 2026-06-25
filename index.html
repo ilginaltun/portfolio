@@ -1,920 +1,1333 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ilgın Altun - Portfolio</title>
-<style>
-/* Reset & Variables */
-:root {
-  --bg-color: #f0f0f0;
-  --accent: #ff4b82;
-  --text-primary: #000000;
-  --text-light-gray: #444444;
-  --text-gray: #666666;
-  --ui-bg: rgba(255, 255, 255, 0.7);
-  --ui-border: rgba(255, 255, 255, 0.4);
-  --folder-gray: #555555;
-  --folder-highlight: #ff4b82;
-  --font-main: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilgın Altun - Portfolio</title>
+  <style>
+    /* Reset & Variables */
+    :root {
+      --bg-color: #f0f0f0;
+      --accent: #ff4b82;
+      --text-primary: #000000;
+      --text-light-gray: #444444;
+      --text-gray: #666666;
+      --ui-bg: rgba(255, 255, 255, 0.7);
+      --ui-border: rgba(255, 255, 255, 0.4);
+      --folder-gray: #555555;
+      --folder-highlight: #ff4b82;
+      --font-main: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 
-body, html {
-  margin: 0; padding: 0;
-  width: 100vw; height: 100vh;
-  background-color: var(--bg-color);
-  background-image: url('background.png'), radial-gradient(circle at 50% 50%, #ffe066 0%, #ff8c42 40%, #ff3b7c 100%);
-  background-size: cover; background-position: center;
-  color: var(--text-primary);
-  font-family: var(--font-main);
-  overflow: hidden;
-  user-select: none;
-}
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-color);
+      background-image: url('background.png'), radial-gradient(circle at 50% 50%, #ffe066 0%, #ff8c42 40%, #ff3b7c 100%);
+      background-size: cover;
+      background-position: center;
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      overflow: hidden;
+      user-select: none;
+    }
 
-#dark-overlay {
-  position: absolute; top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.65); pointer-events: none; z-index: 5;
-  transition: opacity 1.5s ease-out;
-}
+    #dark-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      pointer-events: none;
+      z-index: 5;
+      transition: opacity 1.5s ease-out;
+    }
 
-/* Language Toggle */
-#lang-toggle {
-  position: fixed; top: 16px; right: 16px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--ui-border);
-  border-radius: 8px;
-  display: flex; z-index: 10000;
-}
-#lang-toggle button {
-  background: none; border: none;
-  color: var(--text-gray); font-family: var(--font-main);
-  cursor: pointer; padding: 4px 8px; font-size: 13px; font-weight: 600;
-  outline: none; transition: color 0.2s;
-  position: relative;
-}
-#lang-toggle button::after {
-  content: ''; position: absolute;
-  left: 50%; bottom: 2px; transform: translateX(-50%);
-  width: 14px; height: 3px; border-radius: 2px;
-  background-color: transparent; transition: background-color 0.2s;
-}
-#lang-toggle button.active {
-  color: var(--text-primary);
-}
-#lang-toggle button.active::after {
-  background-color: var(--text-primary);
-}
+    /* Language Toggle */
+    #lang-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--ui-border);
+      border-radius: 8px;
+      display: flex;
+      z-index: 10000;
+    }
 
-body.lang-en .tr { display: none !important; }
-body.lang-tr .en { display: none !important; }
+    #lang-toggle button {
+      background: none;
+      border: none;
+      color: var(--text-gray);
+      font-family: var(--font-main);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+      transition: color 0.2s;
+      position: relative;
+    }
 
-/* Shared macOS Window Styles */
-.window-header {
-  height: 32px; background: rgba(255, 255, 255, 0.4);
-  border-top-left-radius: 12px; border-top-right-radius: 12px;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  display: flex; align-items: center; padding: 0 12px;
-  position: relative; cursor: pointer;
-}
-.window-dots { display: flex; gap: 8px; position: absolute; left: 12px; }
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot.red { background: #ff5f56; cursor: pointer; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
-.window-title { width: 100%; text-align: center; font-size: 14px; color: #000; font-weight: 500; }
+    #lang-toggle button::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 3px;
+      border-radius: 2px;
+      background-color: transparent;
+      transition: background-color 0.2s;
+    }
 
-/* Phase 1: Terminal */
-#intro-terminal {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 450px; background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--ui-border); border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-  z-index: 50;
-  transition: opacity 0.5s, transform 0.5s;
-}
-#intro-terminal.hide {
-  opacity: 0; transform: translate(-50%, -30%);
-  pointer-events: none;
-}
-.terminal-body {
-  padding: 20px; font-size: 16px; color: var(--text-primary);
-  min-height: 100px; font-weight: 500; line-height: 1.5;
-}
-#term-input {
-  background: transparent; border: none; color: var(--text-primary);
-  font-family: var(--font-main); font-size: 16px; outline: none; width: 120px; font-weight: 500;
-}
+    #lang-toggle button.active {
+      color: var(--text-primary);
+    }
 
-/* Phase 1 & 2: Scatter Icons */
-#scatter-container {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 10;
-}
-.scatter-wrapper {
-  position: absolute; width: 64px; height: 70px;
-  opacity: 0;
-}
-.scatter-icon {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; align-items: center;
-  transition: transform 0.8s ease-out;
-}
-.scatter-icon img { width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-.scatter-icon .icon-label { font-size: 11px; margin-top: 4px; color: #000; font-weight: 500; background: rgba(255,255,255,0.4); padding: 1px 4px; border-radius: 4px; }
+    #lang-toggle button.active::after {
+      background-color: var(--text-primary);
+    }
 
-@keyframes flyIn {
-  0% { transform: translate(var(--start-x), var(--start-y)); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translate(0px, 0px); opacity: 1; }
-}
+    body.lang-en .tr {
+      display: none !important;
+    }
 
-/* Phase 2: Desktop */
-#desktop-folders {
-  display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  flex-direction: row; align-items: center; justify-content: center; gap: 8vw;
-  z-index: 20; padding: 40px; box-sizing: border-box;
-}
-.folder-wrapper {
-  width: 90px; height: 100px; opacity: 0;
-  display: flex; justify-content: center; align-items: center;
-}
-.folder-icon {
-  display: flex; flex-direction: column; align-items: center; cursor: pointer;
-  transition: transform 0.2s ease-out;
-}
-.folder-icon:hover { transform: scale(1.05); }
-.folder-img { width: 72px; height: 72px; object-fit: contain; }
-.folder-label { font-size: 15px; margin-top: 8px; text-align: center; color: #000; font-weight: 600; text-shadow: 0 1px 4px rgba(255,255,255,0.8); }
-.folder-yellow .folder-label { background: rgba(255,255,255,0.6); padding: 2px 8px; border-radius: 6px; }
+    body.lang-tr .en {
+      display: none !important;
+    }
 
-@keyframes settleIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  60% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
-}
+    /* Shared macOS Window Styles */
+    .window-header {
+      height: 32px;
+      background: rgba(255, 255, 255, 0.4);
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      position: relative;
+      cursor: pointer;
+    }
 
-/* Phase 3: Popups */
-#popups-container {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 100;
-}
-.popup {
-  position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%, -50%);
-  background: var(--ui-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--ui-border);
-  border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-  display: none; flex-direction: column;
-  pointer-events: auto; min-width: 300px; max-height: 85vh;
-}
-.window-content { padding: 24px; overflow-y: auto; flex-grow: 1; }
+    .window-dots {
+      display: flex;
+      gap: 8px;
+      position: absolute;
+      left: 12px;
+    }
 
-/* Specific Popup Styles */
-.text-content { line-height: 1.6; font-size: 15px; color: var(--text-primary); font-weight: 400; }
-.word-processor { background: rgba(255,255,255,0.9); color: #000000; padding: 40px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; font-size: 15px; }
-.word-processor h1 { font-size: 24px; margin: 0 0 12px 0; font-weight: 700; }
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
 
-.finder-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.finder-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 12px; border-radius: 8px; transition: background 0.2s; }
-.finder-item:hover { background: rgba(0,0,0,0.05); }
-.finder-item img { width: 56px; height: 56px; object-fit: contain; }
-.finder-item span { font-size: 13px; margin-top: 10px; color: #000; font-weight: 500; }
+    .dot.red {
+      background: #ff5f56;
+      cursor: pointer;
+    }
 
-.browser-chrome { width: 800px; height: 500px; padding: 0; }
-.browser-bar { background: rgba(255,255,255,0.5); padding: 8px 16px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid rgba(0,0,0,0.1); }
-.browser-nav { color: #555; font-size: 18px; letter-spacing: 4px; font-weight: bold; }
-.browser-url { background: rgba(255,255,255,0.8); padding: 6px 16px; border-radius: 6px; font-size: 13px; color: #333; flex-grow: 1; font-weight: 500;}
+    .dot.yellow {
+      background: #ffbd2e;
+    }
 
-.terminal-popup { background: rgba(255,255,255,0.6); color: #000; font-size: 15px; padding: 24px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; font-weight: 500; }
-.terminal-btn { background: rgba(255,255,255,0.5); border: 1px solid #000; color: #000; font-family: var(--font-main); padding: 6px 12px; cursor: pointer; margin-right: 10px; margin-top: 12px; border-radius: 6px; font-weight: 600; transition: all 0.2s; }
-.terminal-btn:hover { background: #000; color: #fff; }
+    .dot.green {
+      background: #27c93f;
+    }
 
-.finder-list { padding: 0; }
-.list-row { display: flex; align-items: center; padding: 14px 24px; border-bottom: 1px solid rgba(0,0,0,0.05); color: #000; text-decoration: none; font-size: 15px; font-weight: 500; }
-.list-row .icon { margin-right: 14px; font-size: 20px; }
-.clickable-row { border-left: 4px solid var(--accent); cursor: pointer; }
-.clickable-row:hover { background: rgba(255,75,130,0.1); }
-.non-clickable-row { border-left: 4px solid var(--folder-gray); cursor: default; }
+    .window-title {
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #000;
+      font-weight: 500;
+    }
 
-.badge { background: #000; padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-right: 8px; color: #fff; font-weight: 600; }
-</style>
+    /* Phase 1: Terminal */
+    #intro-terminal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 450px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--ui-border);
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      z-index: 50;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    #intro-terminal.hide {
+      opacity: 0;
+      transform: translate(-50%, -30%);
+      pointer-events: none;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      font-size: 16px;
+      color: var(--text-primary);
+      min-height: 100px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    #term-input {
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      font-size: 16px;
+      outline: none;
+      width: 120px;
+      font-weight: 500;
+    }
+
+    /* Phase 1 & 2: Scatter Icons */
+    #scatter-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .scatter-wrapper {
+      position: absolute;
+      width: 64px;
+      height: 70px;
+      opacity: 0;
+    }
+
+    .scatter-icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.8s ease-out;
+    }
+
+    .scatter-icon img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .scatter-icon .icon-label {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #000;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+
+    @keyframes flyIn {
+      0% {
+        transform: translate(var(--start-x), var(--start-y));
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(0px, 0px);
+        opacity: 1;
+      }
+    }
+
+    /* Phase 2: Desktop */
+    #desktop-folders {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 8vw;
+      z-index: 20;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .folder-wrapper {
+      width: 90px;
+      height: 100px;
+      opacity: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .folder-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease-out;
+    }
+
+    .folder-icon:hover {
+      transform: scale(1.05);
+    }
+
+    .folder-img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+    }
+
+    .folder-label {
+      font-size: 15px;
+      margin-top: 8px;
+      text-align: center;
+      color: #000;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.8);
+    }
+
+    .folder-yellow .folder-label {
+      background: rgba(255, 255, 255, 0.6);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    @keyframes settleIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Phase 3: Popups */
+    #popups-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ui-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--ui-border);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      pointer-events: auto;
+      min-width: 300px;
+      max-height: 85vh;
+    }
+
+    .window-content {
+      padding: 24px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    /* Specific Popup Styles */
+    .text-content {
+      line-height: 1.6;
+      font-size: 15px;
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+
+    .word-processor {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000000;
+      padding: 40px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      font-size: 15px;
+    }
+
+    .word-processor h1 {
+      font-size: 24px;
+      margin: 0 0 12px 0;
+      font-weight: 700;
+    }
+
+    .finder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .finder-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .finder-item:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .finder-item img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+
+    .finder-item span {
+      font-size: 13px;
+      margin-top: 10px;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .browser-chrome {
+      width: 800px;
+      height: 500px;
+      padding: 0;
+    }
+
+    .browser-bar {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .browser-nav {
+      color: #555;
+      font-size: 18px;
+      letter-spacing: 4px;
+      font-weight: bold;
+    }
+
+    .browser-url {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #333;
+      flex-grow: 1;
+      font-weight: 500;
+    }
+
+    .terminal-popup {
+      background: rgba(255, 255, 255, 0.6);
+      color: #000;
+      font-size: 15px;
+      padding: 24px;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      font-weight: 500;
+    }
+
+    .terminal-btn {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid #000;
+      color: #000;
+      font-family: var(--font-main);
+      padding: 6px 12px;
+      cursor: pointer;
+      margin-right: 10px;
+      margin-top: 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .terminal-btn:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    .finder-list {
+      padding: 0;
+    }
+
+    .list-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      color: #000;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .list-row .icon {
+      margin-right: 14px;
+      font-size: 20px;
+    }
+
+    .clickable-row {
+      border-left: 4px solid var(--accent);
+      cursor: pointer;
+    }
+
+    .clickable-row:hover {
+      background: rgba(255, 75, 130, 0.1);
+    }
+
+    .non-clickable-row {
+      border-left: 4px solid var(--folder-gray);
+      cursor: default;
+    }
+
+    .badge {
+      background: #000;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-right: 8px;
+      color: #fff;
+      font-weight: 600;
+    }
+  </style>
 </head>
+
 <body class="lang-en">
 
-<!-- Dark Overlay for Phase 1 -->
-<div id="dark-overlay"></div>
+  <!-- Dark Overlay for Phase 1 -->
+  <div id="dark-overlay"></div>
 
-<div id="lang-toggle">
-  <button id="btn-en" class="active" onclick="setLanguage('en')">EN</button>
-  <button id="btn-tr" onclick="setLanguage('tr')">TR</button>
-</div>
-
-<!-- Phase 1 & 2: Scatter Icons (Generated by JS) -->
-<div id="scatter-container"></div>
-
-<!-- Phase 1: Terminal -->
-<div id="intro-terminal">
-  <div class="window-header">
-    <div class="window-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-    <div class="window-title">bash</div>
-  </div>
-  <div class="terminal-body">
-    <div id="term-line1"></div>
-    <div id="term-line2" style="display: none; margin-top: 8px;">
-      <span id="term-prompt"></span><input type="text" id="term-input" autocomplete="off" spellcheck="false">
-    </div>
-  </div>
-</div>
-
-<!-- Phase 2: Desktop Folders -->
-<div id="desktop-folders">
-  <!-- Folders generated by JS -->
-</div>
-
-<!-- Phase 3: Popups -->
-<div id="popups-container">
-  
-  <!-- DYNAMIC TRY DEMO POPUP -->
-  <div class="popup" id="popup-try-project" style="width: 380px;">
-    <div class="window-header"><div class="window-dots"><div class="dot red" onclick="closePopup('popup-try-project')"></div><div class="dot yellow"></div><div class="dot green"></div></div><div class="window-title">bash</div></div>
-    <div class="window-content terminal-popup">
-      <div class="en">
-        > Target: <span id="td-name-en"></span><br>
-        > Action: Initialize Environment<br>
-        > Status: Ready<br>
-      </div>
-      <div class="tr">
-        > Hedef: <span id="td-name-tr"></span><br>
-        > Eylem: Ortamı Hazırla<br>
-        > Durum: Hazır<br>
-      </div>
-      <br>
-      <button class="terminal-btn" id="td-btn">[ Try Demo ]</button>
-    </div>
+  <div id="lang-toggle">
+    <button id="btn-en" class="active" onclick="setLanguage('en')">EN</button>
+    <button id="btn-tr" onclick="setLanguage('tr')">TR</button>
   </div>
 
-  <!-- HOW -->
-  <div class="popup" id="popup-how" style="width: 400px;">
+  <!-- Phase 1 & 2: Scatter Icons (Generated by JS) -->
+  <div id="scatter-container"></div>
+
+  <!-- Phase 1: Terminal -->
+  <div id="intro-terminal">
     <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-how')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">README.txt</div>
-    </div>
-    <div class="window-content text-content">
-      <div class="en">
-        HOW TO USE THIS PORTFOLIO<br><br>
-        • Click any folder to explore its contents.<br>
-        • Popups can be dragged and layered.<br>
-        • "who?" — learn about me.<br>
-        • "what?" — browse my projects.<br>
-        • "contact!" — get in touch.<br>
-        • Use the EN/TR toggle (top right) to switch language.<br>
-        • Move your cursor near icons to scatter them.
+      <div class="window-dots">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
       </div>
-      <div class="tr">
-        SİTEYİ NASIL KULLANIRSINIZ<br><br>
-        • Klasörlere tıklayarak içerikleri keşfedin.<br>
-        • Pencereler sürüklenebilir ve üst üste açılabilir.<br>
-        • "kim?" — hakkımda bilgi.<br>
-        • "ne?" — projelerimi gözden geçirin.<br>
-        • "iletişim!" — benimle iletişime geçin.<br>
-        • Sağ üstteki EN/TR butonuyla dil değiştirin.<br>
-        • İmleci ikonlara yaklaştırarak onları dağıtın.
+      <div class="window-title">bash</div>
+    </div>
+    <div class="terminal-body">
+      <div id="term-line1"></div>
+      <div id="term-line2" style="display: none; margin-top: 8px;">
+        <span id="term-prompt"></span><input type="text" id="term-input" autocomplete="off" spellcheck="false">
       </div>
     </div>
   </div>
 
-  <!-- WHO 1 -->
-  <div class="popup" id="popup-about" style="width: 500px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-about')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">about.docx</div>
-    </div>
-    <div class="window-content word-processor">
-      <h1>ILGIN ALTUN</h1>
-      <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 16px;">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-      <br>
-      <strong>Skills:</strong> HTML/CSS, JavaScript, Python, Machine Learning, Data Analysis, UI Design
-    </div>
+  <!-- Phase 2: Desktop Folders -->
+  <div id="desktop-folders">
+    <!-- Folders generated by JS -->
   </div>
 
-  <!-- WHO 2 -->
-  <div class="popup" id="popup-photo" style="width: 300px; height: 300px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-photo')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">photo.jpg</div>
+  <!-- Phase 3: Popups -->
+  <div id="popups-container">
+
+    <!-- DYNAMIC TRY DEMO POPUP -->
+    <div class="popup" id="popup-try-project" style="width: 380px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-try-project')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">bash</div>
+      </div>
+      <div class="window-content terminal-popup">
+        <div class="en">
+          > Target: <span id="td-name-en"></span><br>
+          > Action: Initialize Environment<br>
+          > Status: Ready<br>
+        </div>
+        <div class="tr">
+          > Hedef: <span id="td-name-tr"></span><br>
+          > Eylem: Ortamı Hazırla<br>
+          > Durum: Hazır<br>
+        </div>
+        <br>
+        <button class="terminal-btn" id="td-btn">[ Try Demo ]</button>
+      </div>
     </div>
-    <div class="window-content" style="padding:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.5); flex-direction:column; color:#333;">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      <div style="margin-top: 12px; font-size: 13px; font-weight: 500;">photo.jpg placeholder</div>
+
+    <!-- HOW -->
+    <div class="popup" id="popup-how" style="width: 400px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-how')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.txt</div>
+      </div>
+      <div class="window-content text-content">
+        <div class="en">
+          HOW TO USE THIS PORTFOLIO<br><br>
+          • Click any folder to explore its contents.<br>
+          • Popups can be dragged and layered.<br>
+          • "who?" — learn about me.<br>
+          • "what?" — browse my projects.<br>
+          • "contact!" — get in touch.<br>
+          • Use the EN/TR toggle (top right) to switch language.<br>
+          • Move your cursor near icons to scatter them.
+        </div>
+        <div class="tr">
+          SİTEYİ NASIL KULLANIRSINIZ<br><br>
+          • Klasörlere tıklayarak içerikleri keşfedin.<br>
+          • Pencereler sürüklenebilir ve üst üste açılabilir.<br>
+          • "kim?" — hakkımda bilgi.<br>
+          • "ne?" — projelerimi gözden geçirin.<br>
+          • "iletişim!" — benimle iletişime geçin.<br>
+          • Sağ üstteki EN/TR butonuyla dil değiştirin.<br>
+          • İmleci ikonlara yaklaştırarak onları dağıtın.
+        </div>
+      </div>
     </div>
+
+    <!-- WHO 1 -->
+    <div class="popup" id="popup-about" style="width: 500px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-about')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">about.docx</div>
+      </div>
+      <div class="window-content word-processor">
+        <h1>ILGIN ALTUN</h1>
+        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 16px;">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+          est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem
+          aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        <br>
+        <strong>Skills:</strong> HTML/CSS, JavaScript, Python, Machine Learning, Data Analysis, UI Design
+      </div>
+    </div>
+
+    <!-- WHO 2 -->
+    <div class="popup" id="popup-photo" style="width: 300px; height: 300px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-photo')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">photo.jpg</div>
+      </div>
+      <div class="window-content"
+        style="padding:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.5); flex-direction:column; color:#333;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <div style="margin-top: 12px; font-size: 13px; font-weight: 500;">photo.jpg placeholder</div>
+      </div>
+    </div>
+
+    <!-- WHAT (Finder Grid) -->
+    <div class="popup" id="popup-what" style="width: 550px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-what')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">projects/</div>
+      </div>
+      <div class="window-content finder-grid">
+        <div class="finder-item"
+          onclick="launchTryDemo('popup-proj1', 'kadıköy_tamir_ödül', 'kadıköy_tamir_ödül', event)">
+          <img src="blue_folder.png" alt="folder"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
+          <span class="en">kadıköy_tamir_ödül</span><span class="tr">kadıköy_tamir_ödül</span>
+        </div>
+        <div class="finder-item" onclick="launchTryDemo('popup-proj2', 'sonification', 'sonification', event)">
+          <img src="blue_folder.png" alt="folder"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
+          <span class="en">sonification</span><span class="tr">sonification</span>
+        </div>
+        <div class="finder-item" onclick="launchTryDemo('popup-proj3', 'personal_library', 'personal_library', event)">
+          <img src="blue_folder.png" alt="folder"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
+          <span class="en">personal_library</span><span class="tr">personal_library</span>
+        </div>
+        <div class="finder-item" onclick="launchTryDemo('popup-proj4', 'sound_map', 'sound_map', event)">
+          <img src="blue_folder.png" alt="folder"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
+          <span class="en">sound_map</span><span class="tr">sound_map</span>
+        </div>
+        <div class="finder-item" onclick="launchTryDemo('popup-proj5', 'sound_detection', 'sound_detection', event)">
+          <img src="blue_folder.png" alt="folder"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
+          <span class="en">sound_detection</span><span class="tr">sound_detection</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJ 1 (kadıköy_tamir_ödül) -->
+    <div class="popup browser-chrome" id="popup-proj1"
+      style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-proj1')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">kadıköy_tamir_ödül</div>
+      </div>
+      <div class="browser-bar">
+        <div class="browser-nav">◁ ▷ ⟳</div>
+        <div class="browser-url">../14.06.2026/index.html</div>
+      </div>
+      <div
+        style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
+        <iframe src="../14.06.2026/index.html" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+
+    <!-- PROJ 2 (sonification) -->
+    <div class="popup browser-chrome" id="popup-proj2"
+      style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-proj2')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">sonification</div>
+      </div>
+      <div class="browser-bar">
+        <div class="browser-nav">◁ ▷ ⟳</div>
+        <div class="browser-url">../549/soundscape.html</div>
+      </div>
+      <div
+        style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
+        <iframe src="../549/soundscape.html" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+
+    <!-- PROJ 3 (personal_library) -->
+    <div class="popup browser-chrome" id="popup-proj3"
+      style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-proj3')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">personal_library</div>
+      </div>
+      <div class="browser-bar">
+        <div class="browser-nav">◁ ▷ ⟳</div>
+        <div class="browser-url">https://personal-library-pied.vercel.app/</div>
+      </div>
+      <div
+        style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
+        <iframe src="https://personal-library-pied.vercel.app/"
+          style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+
+    <!-- PROJ 4 (sound_map - Terminal) -->
+    <div class="popup" id="popup-proj4" style="width: 550px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-proj4')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">bash - crnn_prediction.py</div>
+      </div>
+      <div class="window-content terminal-popup" style="min-height: 250px; background: rgba(0,0,0,0.85); color: #fff;">
+        <div style="color: #4af626;">$ python3 urban_sound_project/crnn_prediction.py</div>
+        <div style="margin-top: 10px; color: #ccc;">> Initialize CRNN Model (sonic_genome_v6)... [OK]</div>
+        <div style="margin-top: 10px; color: #ccc;">> Waiting for audio input...</div>
+
+        <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;"
+          id="upload-box-4">
+          <label
+            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
+            Upload Audio File
+            <input type="file" style="display:none;" onchange="runSimulation(4, this.files[0])">
+          </label>
+        </div>
+
+        <div id="sim-output-4" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
+          <div id="sim-log-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJ 5 (sound_detection - Terminal) -->
+    <div class="popup" id="popup-proj5" style="width: 550px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-proj5')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">bash - transkript.py</div>
+      </div>
+      <div class="window-content terminal-popup" style="min-height: 250px; background: rgba(0,0,0,0.85); color: #fff;">
+        <div style="color: #4af626;">$ python3 whisper/transkript.py</div>
+        <div style="margin-top: 10px; color: #ccc;">> Loading Whisper model (large-v3)... [OK]</div>
+        <div style="margin-top: 10px; color: #ccc;">> Waiting for audio file for transcription...</div>
+
+        <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;"
+          id="upload-box-5">
+          <label
+            style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
+            Upload Audio File
+            <input type="file" style="display:none;" onchange="runSimulation(5, this.files[0])">
+          </label>
+        </div>
+
+        <div id="sim-output-5" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
+          <div id="sim-log-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="popup" id="popup-contact" style="width: 380px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('popup-contact')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">contact.txt</div>
+      </div>
+      <div class="window-content finder-list">
+        <a href="mailto:ilginaltun01@gmail.com" class="list-row clickable-row">
+          <span class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </span>
+          ilginaltun01@gmail.com
+        </a>
+        <div class="list-row non-clickable-row">
+          <span class="icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+          </span>
+          +90 531 925 18 03
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- WHAT (Finder Grid) -->
-  <div class="popup" id="popup-what" style="width: 550px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-what')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">projects/</div>
-    </div>
-    <div class="window-content finder-grid">
-      <div class="finder-item" onclick="launchTryDemo('popup-proj1', 'kadıköy_tamir_ödül', 'kadıköy_tamir_ödül', event)">
-        <img src="blue_folder.png" alt="folder" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
-        <span class="en">kadıköy_tamir_ödül</span><span class="tr">kadıköy_tamir_ödül</span>
-      </div>
-      <div class="finder-item" onclick="launchTryDemo('popup-proj2', 'sonification', 'sonification', event)">
-        <img src="blue_folder.png" alt="folder" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
-        <span class="en">sonification</span><span class="tr">sonification</span>
-      </div>
-      <div class="finder-item" onclick="launchTryDemo('popup-proj3', 'personal_library', 'personal_library', event)">
-        <img src="blue_folder.png" alt="folder" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
-        <span class="en">personal_library</span><span class="tr">personal_library</span>
-      </div>
-      <div class="finder-item" onclick="launchTryDemo('popup-proj4', 'sound_map', 'sound_map', event)">
-        <img src="blue_folder.png" alt="folder" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
-        <span class="en">sound_map</span><span class="tr">sound_map</span>
-      </div>
-      <div class="finder-item" onclick="launchTryDemo('popup-proj5', 'sound_detection', 'sound_detection', event)">
-        <img src="blue_folder.png" alt="folder" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
-        <span class="en">sound_detection</span><span class="tr">sound_detection</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJ 1 (kadıköy_tamir_ödül) -->
-  <div class="popup browser-chrome" id="popup-proj1" style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-proj1')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">kadıköy_tamir_ödül</div>
-    </div>
-    <div class="browser-bar">
-      <div class="browser-nav">◁ ▷ ⟳</div>
-      <div class="browser-url">../14.06.2026/index.html</div>
-    </div>
-    <div style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
-      <iframe src="../14.06.2026/index.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-  </div>
-
-  <!-- PROJ 2 (sonification) -->
-  <div class="popup browser-chrome" id="popup-proj2" style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-proj2')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">sonification</div>
-    </div>
-    <div class="browser-bar">
-      <div class="browser-nav">◁ ▷ ⟳</div>
-      <div class="browser-url">../549/soundscape.html</div>
-    </div>
-    <div style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
-      <iframe src="../549/soundscape.html" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-  </div>
-
-  <!-- PROJ 3 (personal_library) -->
-  <div class="popup browser-chrome" id="popup-proj3" style="display:none; flex-direction:column; height: 80vh; width: 85vw;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-proj3')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">personal_library</div>
-    </div>
-    <div class="browser-bar">
-      <div class="browser-nav">◁ ▷ ⟳</div>
-      <div class="browser-url">https://personal-library-pied.vercel.app/</div>
-    </div>
-    <div style="flex-grow:1; display:flex; flex-direction:column; background:#fff; border-bottom-left-radius:12px; border-bottom-right-radius:12px; overflow: hidden;">
-      <iframe src="https://personal-library-pied.vercel.app/" style="width: 100%; height: 100%; border: none;"></iframe>
-    </div>
-  </div>
-
-  <!-- PROJ 4 (sound_map - Terminal) -->
-  <div class="popup" id="popup-proj4" style="width: 550px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-proj4')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">bash - crnn_prediction.py</div>
-    </div>
-    <div class="window-content terminal-popup" style="min-height: 250px; background: rgba(0,0,0,0.85); color: #fff;">
-      <div style="color: #4af626;">$ python3 urban_sound_project/crnn_prediction.py</div>
-      <div style="margin-top: 10px; color: #ccc;">> Initialize CRNN Model (sonic_genome_v6)... [OK]</div>
-      <div style="margin-top: 10px; color: #ccc;">> Waiting for audio input...</div>
-      
-      <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;" id="upload-box-4">
-        <label style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
-          Upload Audio File
-          <input type="file" style="display:none;" onchange="runSimulation(4, this.files[0])">
-        </label>
-      </div>
-      
-      <div id="sim-output-4" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
-        <div id="sim-log-4"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJ 5 (sound_detection - Terminal) -->
-  <div class="popup" id="popup-proj5" style="width: 550px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-proj5')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">bash - transkript.py</div>
-    </div>
-    <div class="window-content terminal-popup" style="min-height: 250px; background: rgba(0,0,0,0.85); color: #fff;">
-      <div style="color: #4af626;">$ python3 whisper/transkript.py</div>
-      <div style="margin-top: 10px; color: #ccc;">> Loading Whisper model (large-v3)... [OK]</div>
-      <div style="margin-top: 10px; color: #ccc;">> Waiting for audio file for transcription...</div>
-      
-      <div style="margin-top: 16px; border: 1px dashed #666; padding: 16px; border-radius: 8px; text-align: center;" id="upload-box-5">
-        <label style="cursor: pointer; background: #fff; color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold;">
-          Upload Audio File
-          <input type="file" style="display:none;" onchange="runSimulation(5, this.files[0])">
-        </label>
-      </div>
-      
-      <div id="sim-output-5" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
-        <div id="sim-log-5"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTACT -->
-  <div class="popup" id="popup-contact" style="width: 380px;">
-    <div class="window-header">
-      <div class="window-dots"><div class="dot red" onclick="closePopup('popup-contact')"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-      <div class="window-title">contact.txt</div>
-    </div>
-    <div class="window-content finder-list">
-      <a href="mailto:ilginaltun01@gmail.com" class="list-row clickable-row">
-        <span class="icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        </span> 
-        ilginaltun01@gmail.com
-      </a>
-      <div class="list-row non-clickable-row">
-        <span class="icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        </span> 
-        +90 531 925 18 03
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-// Strings
-const STRINGS = {
-  en: {
-    term1: "> hi i'm ılgın!",
-    term2: "> wanna start? (yes/no): "
-  },
-  tr: {
-    term1: "> merhaba ben ılgın!",
-    term2: "> başlamak ister misin? (evet/hayır): "
-  }
-};
-
-let currentLang = 'en';
-
-function setLanguage(lang) {
-  currentLang = lang;
-  document.body.className = `lang-${lang}`;
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
-  
-  if (phase === 1 && termDone) {
-    document.getElementById('term-line1').innerHTML = STRINGS[lang].term1;
-    document.getElementById('term-prompt').innerText = STRINGS[lang].term2;
-  }
-}
-
-// Phase 1: Intro
-let phase = 1;
-let termDone = false;
-
-const FILE_ICONS = [
-  `<img src="file_icon.png" alt="file">`,
-  `<img src="file_pink.png" alt="file">`,
-  `<img src="file_orange.png" alt="file">`,
-  `<img src="file_icon kopyası.png" alt="file">`,
-  `<img src="file_icon kopyası 2.png" alt="file">`,
-  `<img src="file_icon kopyası 3.png" alt="file">`
-];
-
-const scatterFiles = [
-  'index.html', 'style.css', 'app.js', 'main.py', 'database.db', 'model.keras', 'notes.md', 'logo.png', 'config.json', 'utils.js', 
-  'server.py', 'docker-compose.yml', 'Dockerfile', 'package.json', 'README.md', 'test.py', 'data.csv', 'backup.sql', 'archive.zip', 'image.jpg', 
-  'video.mp4', 'audio.wav', 'script.sh', 'deploy.yaml', 'auth.js', 'api.py', 'routes.js', 'styles.scss', 'index.tsx', 'app.tsx', 
-  'Component.jsx', 'hooks.js', 'store.js', 'reducers.js', 'actions.js', 'types.ts', 'interfaces.ts', 'tsconfig.json', 'webpack.config.js', 'babel.config.json', 
-  'jest.config.js', 'setupTests.js', 'eslint.config.js', 'prettierrc.json', '.gitignore', '.env', 'logs.txt', 'error.log', 'access.log', 'yarn.lock', 
-  'npm-debug.log', 'Pipfile', 'requirements.txt', 'manage.py', 'settings.py', 'urls.py', 'wsgi.py', 'asgi.py', 'models.py', 'views.py'
-];
-const scatterContainer = document.getElementById('scatter-container');
-
-scatterFiles.forEach((name, i) => {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'scatter-wrapper';
-  
-  const targetX = 2 + Math.random() * 92;
-  const targetY = 5 + Math.random() * 90;
-  wrapper.style.left = targetX + 'vw';
-  wrapper.style.top = targetY + 'vh';
-  
-  const startX = (Math.random() > 0.5 ? 100 : -100) + 'vw';
-  const startY = (Math.random() > 0.5 ? 100 : -100) + 'vh';
-  wrapper.style.setProperty('--start-x', startX);
-  wrapper.style.setProperty('--start-y', startY);
-  
-  const delay = Math.random() * 1.2;
-  const duration = 0.8 + Math.random() * 1.0;
-  wrapper.style.animation = `flyIn ${duration}s ${delay}s cubic-bezier(0.2, 0.8, 0.2, 1) forwards`;
-  
-  const icon = document.createElement('div');
-  icon.className = 'scatter-icon';
-  const rot = (Math.random() - 0.5) * 60;
-  icon.dataset.rot = rot;
-  icon.style.transform = `rotate(${rot}deg)`;
-  const randomIcon = FILE_ICONS[Math.floor(Math.random() * FILE_ICONS.length)];
-  icon.innerHTML = `${randomIcon}<div class="icon-label">${name}</div>`;
-  
-  wrapper.appendChild(icon);
-  scatterContainer.appendChild(wrapper);
-});
-
-function setupInteractions() {
-  const wrappers = document.querySelectorAll('.scatter-wrapper');
-  
-  document.addEventListener('mousemove', (e) => {
-    if (isDraggingPopup) return;
-    if (phase === 2 && scatterFilesGathered) return;
-    
-    wrappers.forEach(wrapper => {
-      const icon = wrapper.querySelector('.scatter-icon');
-      if (!icon) return;
-      
-      const rect = wrapper.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      const dx = centerX - e.clientX;
-      const dy = centerY - e.clientY;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      
-      if (dist < 150) {
-        const pushFactor = (150 - dist) / 150;
-        const pushDist = pushFactor * 100;
-        const dirX = dist === 0 ? 0 : dx / dist;
-        const dirY = dist === 0 ? 0 : dy / dist;
-        icon.style.transform = `translate(${dirX * pushDist}px, ${dirY * pushDist}px) rotate(${icon.dataset.rot}deg)`;
-        icon.style.transition = 'transform 0.1s linear';
-      } else {
-        icon.style.transform = `translate(0px, 0px) rotate(${icon.dataset.rot}deg)`;
-        icon.style.transition = 'transform 0.8s ease-out';
+  <script>
+    // Strings
+    const STRINGS = {
+      en: {
+        term1: "> hi i'm ılgın!",
+        term2: "> wanna start? (yes/no): "
+      },
+      tr: {
+        term1: "> merhaba ben ılgın!",
+        term2: "> başlamak ister misin? (evet/hayır): "
       }
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.body.className = `lang-${lang}`;
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+
+      if (phase === 1 && termDone) {
+        document.getElementById('term-line1').innerHTML = STRINGS[lang].term1;
+        document.getElementById('term-prompt').innerText = STRINGS[lang].term2;
+      }
+    }
+
+    // Phase 1: Intro
+    let phase = 1;
+    let termDone = false;
+
+    const FILE_ICONS = [
+      `<img src="file_icon.png" alt="file">`,
+      `<img src="file_pink.png" alt="file">`,
+      `<img src="file_orange.png" alt="file">`,
+      `<img src="file_icon kopyası.png" alt="file">`,
+      `<img src="file_icon kopyası 2.png" alt="file">`,
+      `<img src="file_icon kopyası 3.png" alt="file">`
+    ];
+
+    const scatterFiles = [
+      'index.html', 'style.css', 'app.js', 'main.py', 'database.db', 'model.keras', 'notes.md', 'logo.png', 'config.json', 'utils.js',
+      'server.py', 'docker-compose.yml', 'Dockerfile', 'package.json', 'README.md', 'test.py', 'data.csv', 'backup.sql', 'archive.zip', 'image.jpg',
+      'video.mp4', 'audio.wav', 'script.sh', 'deploy.yaml', 'auth.js', 'api.py', 'routes.js', 'styles.scss', 'index.tsx', 'app.tsx',
+      'Component.jsx', 'hooks.js', 'store.js', 'reducers.js', 'actions.js', 'types.ts', 'interfaces.ts', 'tsconfig.json', 'webpack.config.js', 'babel.config.json',
+      'jest.config.js', 'setupTests.js', 'eslint.config.js', 'prettierrc.json', '.gitignore', '.env', 'logs.txt', 'error.log', 'access.log', 'yarn.lock',
+      'npm-debug.log', 'Pipfile', 'requirements.txt', 'manage.py', 'settings.py', 'urls.py', 'wsgi.py', 'asgi.py', 'models.py', 'views.py'
+    ];
+    const scatterContainer = document.getElementById('scatter-container');
+
+    scatterFiles.forEach((name, i) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'scatter-wrapper';
+
+      const targetX = 2 + Math.random() * 92;
+      const targetY = 5 + Math.random() * 90;
+      wrapper.style.left = targetX + 'vw';
+      wrapper.style.top = targetY + 'vh';
+
+      const startX = (Math.random() > 0.5 ? 100 : -100) + 'vw';
+      const startY = (Math.random() > 0.5 ? 100 : -100) + 'vh';
+      wrapper.style.setProperty('--start-x', startX);
+      wrapper.style.setProperty('--start-y', startY);
+
+      const delay = Math.random() * 1.2;
+      const duration = 0.8 + Math.random() * 1.0;
+      wrapper.style.animation = `flyIn ${duration}s ${delay}s cubic-bezier(0.2, 0.8, 0.2, 1) forwards`;
+
+      const icon = document.createElement('div');
+      icon.className = 'scatter-icon';
+      const rot = (Math.random() - 0.5) * 60;
+      icon.dataset.rot = rot;
+      icon.style.transform = `rotate(${rot}deg)`;
+      const randomIcon = FILE_ICONS[Math.floor(Math.random() * FILE_ICONS.length)];
+      icon.innerHTML = `${randomIcon}<div class="icon-label">${name}</div>`;
+
+      wrapper.appendChild(icon);
+      scatterContainer.appendChild(wrapper);
     });
-  });
-}
 
-setupInteractions();
+    function setupInteractions() {
+      const wrappers = document.querySelectorAll('.scatter-wrapper');
 
-async function typeWriter(text, element, speed = 50) {
-  element.innerHTML = '';
-  for (let i = 0; i < text.length; i++) {
-    element.innerHTML += text.charAt(i);
-    await new Promise(r => setTimeout(r, speed));
-  }
-}
+      document.addEventListener('mousemove', (e) => {
+        if (isDraggingPopup) return;
+        if (phase === 2 && scatterFilesGathered) return;
 
-async function typeWriterHTML(htmlStr, element, speed = 20) {
-  element.innerHTML = '';
-  let i = 0;
-  while (i < htmlStr.length) {
-    if (htmlStr.charAt(i) === '<') {
-      let tag = '';
-      while (htmlStr.charAt(i) !== '>' && i < htmlStr.length) {
-        tag += htmlStr.charAt(i);
+        wrappers.forEach(wrapper => {
+          const icon = wrapper.querySelector('.scatter-icon');
+          if (!icon) return;
+
+          const rect = wrapper.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          const dx = centerX - e.clientX;
+          const dy = centerY - e.clientY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 150) {
+            const pushFactor = (150 - dist) / 150;
+            const pushDist = pushFactor * 100;
+            const dirX = dist === 0 ? 0 : dx / dist;
+            const dirY = dist === 0 ? 0 : dy / dist;
+            icon.style.transform = `translate(${dirX * pushDist}px, ${dirY * pushDist}px) rotate(${icon.dataset.rot}deg)`;
+            icon.style.transition = 'transform 0.1s linear';
+          } else {
+            icon.style.transform = `translate(0px, 0px) rotate(${icon.dataset.rot}deg)`;
+            icon.style.transition = 'transform 0.8s ease-out';
+          }
+        });
+      });
+    }
+
+    setupInteractions();
+
+    async function typeWriter(text, element, speed = 50) {
+      element.innerHTML = '';
+      for (let i = 0; i < text.length; i++) {
+        element.innerHTML += text.charAt(i);
+        await new Promise(r => setTimeout(r, speed));
+      }
+    }
+
+    async function typeWriterHTML(htmlStr, element, speed = 20) {
+      element.innerHTML = '';
+      let i = 0;
+      while (i < htmlStr.length) {
+        if (htmlStr.charAt(i) === '<') {
+          let tag = '';
+          while (htmlStr.charAt(i) !== '>' && i < htmlStr.length) {
+            tag += htmlStr.charAt(i);
+            i++;
+          }
+          tag += '>';
+          element.innerHTML += tag;
+        } else {
+          element.innerHTML += htmlStr.charAt(i);
+          await new Promise(r => setTimeout(r, speed));
+        }
         i++;
       }
-      tag += '>';
-      element.innerHTML += tag;
-    } else {
-      element.innerHTML += htmlStr.charAt(i);
-      await new Promise(r => setTimeout(r, speed));
     }
-    i++;
-  }
-}
 
-// Start typewriter without waiting for files to settle
-setTimeout(async () => {
-  await typeWriter(STRINGS[currentLang].term1, document.getElementById('term-line1'), 40);
-  await new Promise(r => setTimeout(r, 300));
-  document.getElementById('term-line2').style.display = 'block';
-  await typeWriter(STRINGS[currentLang].term2, document.getElementById('term-prompt'), 40);
-  document.getElementById('term-input').focus();
-  termDone = true;
-}, 500);
+    // Start typewriter without waiting for files to settle
+    setTimeout(async () => {
+      await typeWriter(STRINGS[currentLang].term1, document.getElementById('term-line1'), 40);
+      await new Promise(r => setTimeout(r, 300));
+      document.getElementById('term-line2').style.display = 'block';
+      await typeWriter(STRINGS[currentLang].term2, document.getElementById('term-prompt'), 40);
+      document.getElementById('term-input').focus();
+      termDone = true;
+    }, 500);
 
-document.getElementById('term-input').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    startPhase2();
-  }
-});
+    document.getElementById('term-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        startPhase2();
+      }
+    });
 
-// Phase 2
-const mainFolders = [
-  { id: 'how', en: 'how?', tr: 'nasıl?', img: 'blue_folder.png' },
-  { id: 'who', en: 'who?', tr: 'kim?', img: 'blue_folder.png' },
-  { id: 'what', en: 'what?', tr: 'ne?', img: 'blue_folder.png' },
-  { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
-];
+    // Phase 2
+    const mainFolders = [
+      { id: 'how', en: 'how?', tr: 'nasıl?', img: 'blue_folder.png' },
+      { id: 'who', en: 'who?', tr: 'kim?', img: 'blue_folder.png' },
+      { id: 'what', en: 'what?', tr: 'ne?', img: 'blue_folder.png' },
+      { id: 'contact', en: 'contact!', tr: 'iletişim!', img: 'yellow_folder.png', extraClass: 'folder-yellow' }
+    ];
 
-const desktopContainer = document.getElementById('desktop-folders');
+    const desktopContainer = document.getElementById('desktop-folders');
 
-const fallbackSVGBlue = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%234ea5ff'/><path d='M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%237abaff'/></svg>";
-const fallbackSVGYellow = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%23e6a800'/><path d='M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%23ffc824'/></svg>";
+    const fallbackSVGBlue = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%234ea5ff'/><path d='M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%237abaff'/></svg>";
+    const fallbackSVGYellow = "data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><path d='M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%23e6a800'/><path d='M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z' fill='%23ffc824'/></svg>";
 
-mainFolders.forEach(f => {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'folder-wrapper';
-  wrapper.dataset.popup = f.id;
-  
-  const fallback = f.id === 'contact' ? fallbackSVGYellow : fallbackSVGBlue;
-  
-  wrapper.innerHTML = `
+    mainFolders.forEach(f => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'folder-wrapper';
+      wrapper.dataset.popup = f.id;
+
+      const fallback = f.id === 'contact' ? fallbackSVGYellow : fallbackSVGBlue;
+
+      wrapper.innerHTML = `
     <div class="folder-icon ${f.extraClass || ''}">
       <img src="${f.img}" alt="folder" class="folder-img" onerror="this.onerror=null; this.src='${fallback}'">
       <div class="folder-label"><span class="en">${f.en}</span><span class="tr">${f.tr}</span></div>
     </div>
   `;
-  desktopContainer.appendChild(wrapper);
-});
-
-let scatterFilesGathered = false;
-
-function startPhase2() {
-  if (phase === 2) return;
-  phase = 2;
-  
-  // Fade out the dark overlay
-  document.getElementById('dark-overlay').style.opacity = '0';
-  
-  document.getElementById('intro-terminal').classList.add('hide');
-  desktopContainer.style.display = 'flex';
-  
-  document.querySelectorAll('.folder-wrapper').forEach((wrapper, i) => {
-    wrapper.style.animation = `settleIn 0.5s ${i * 0.15}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
-  });
-  
-  setTimeout(() => {
-    const whatFolder = document.querySelector('.folder-wrapper[data-popup="what"]');
-    if (!whatFolder) return;
-    
-    const whatRect = whatFolder.getBoundingClientRect();
-    const destX = whatRect.left + whatRect.width / 2 - 32;
-    const destY = whatRect.top + whatRect.height / 2 - 35;
-    
-    document.querySelectorAll('.scatter-wrapper').forEach((wrapper, i) => {
-      const icon = wrapper.querySelector('.scatter-icon');
-      
-      icon.style.transform = `translate(0px, 0px) rotate(${icon.dataset.rot}deg)`;
-      icon.style.transition = 'transform 0.5s';
-      
-      const currentRect = wrapper.getBoundingClientRect();
-      wrapper.style.left = currentRect.left + 'px';
-      wrapper.style.top = currentRect.top + 'px';
-      wrapper.style.opacity = '1'; 
-      wrapper.style.animation = 'none';
-      
-      void wrapper.offsetWidth;
-      
-      wrapper.style.transition = `all 1.0s cubic-bezier(0.5, 0, 0.2, 1) ${Math.random() * 0.6}s`;
-      wrapper.style.left = destX + 'px';
-      wrapper.style.top = destY + 'px';
-      wrapper.style.transform = 'scale(0.1) rotate(360deg)';
+      desktopContainer.appendChild(wrapper);
     });
-    
-    setTimeout(() => {
-      document.getElementById('scatter-container').innerHTML = '';
-      scatterFilesGathered = true;
-    }, 2500);
-    
-  }, 500);
 
-  const popupMap = {
-    'how': [{ id: 'popup-how', left: '16vw', top: '25vh' }],
-    'who': [
-      { id: 'popup-about', left: '22vw', top: '60vh' },
-      { id: 'popup-photo', left: '50vw', top: '75vh' }
-    ],
-    'what': [{ id: 'popup-what', left: '74vw', top: '25vh' }],
-    'contact': [{ id: 'popup-contact', left: '80vw', top: '70vh' }]
-  };
+    let scatterFilesGathered = false;
 
-  document.querySelectorAll('.folder-wrapper').forEach(folder => {
-    folder.addEventListener('click', (e) => {
-      const items = popupMap[folder.dataset.popup];
-      items.forEach(item => {
-        openPopup(item.id, item.left, item.top, e);
+    function startPhase2() {
+      if (phase === 2) return;
+      phase = 2;
+
+      // Fade out the dark overlay
+      document.getElementById('dark-overlay').style.opacity = '0';
+
+      document.getElementById('intro-terminal').classList.add('hide');
+      desktopContainer.style.display = 'flex';
+
+      document.querySelectorAll('.folder-wrapper').forEach((wrapper, i) => {
+        wrapper.style.animation = `settleIn 0.5s ${i * 0.15}s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
+      });
+
+      setTimeout(() => {
+        const whatFolder = document.querySelector('.folder-wrapper[data-popup="what"]');
+        if (!whatFolder) return;
+
+        const whatRect = whatFolder.getBoundingClientRect();
+        const destX = whatRect.left + whatRect.width / 2 - 32;
+        const destY = whatRect.top + whatRect.height / 2 - 35;
+
+        document.querySelectorAll('.scatter-wrapper').forEach((wrapper, i) => {
+          const icon = wrapper.querySelector('.scatter-icon');
+
+          icon.style.transform = `translate(0px, 0px) rotate(${icon.dataset.rot}deg)`;
+          icon.style.transition = 'transform 0.5s';
+
+          const currentRect = wrapper.getBoundingClientRect();
+          wrapper.style.left = currentRect.left + 'px';
+          wrapper.style.top = currentRect.top + 'px';
+          wrapper.style.opacity = '1';
+          wrapper.style.animation = 'none';
+
+          void wrapper.offsetWidth;
+
+          wrapper.style.transition = `all 1.0s cubic-bezier(0.5, 0, 0.2, 1) ${Math.random() * 0.6}s`;
+          wrapper.style.left = destX + 'px';
+          wrapper.style.top = destY + 'px';
+          wrapper.style.transform = 'scale(0.1) rotate(360deg)';
+        });
+
+        setTimeout(() => {
+          document.getElementById('scatter-container').innerHTML = '';
+          scatterFilesGathered = true;
+        }, 2500);
+
+      }, 500);
+
+      const popupMap = {
+        'how': [{ id: 'popup-how', left: '16vw', top: '25vh' }],
+        'who': [
+          { id: 'popup-about', left: '22vw', top: '60vh' },
+          { id: 'popup-photo', left: '50vw', top: '75vh' }
+        ],
+        'what': [{ id: 'popup-what', left: '74vw', top: '25vh' }],
+        'contact': [{ id: 'popup-contact', left: '80vw', top: '70vh' }]
+      };
+
+      document.querySelectorAll('.folder-wrapper').forEach(folder => {
+        folder.addEventListener('click', (e) => {
+          const items = popupMap[folder.dataset.popup];
+          items.forEach(item => {
+            openPopup(item.id, item.left, item.top, e);
+          });
+        });
+      });
+    }
+
+    // Popups
+    let zIndexCounter = 100;
+    let isDraggingPopup = false;
+
+    function launchTryDemo(targetId, nameEn, nameTr, e) {
+      document.getElementById('td-name-en').innerText = nameEn;
+      document.getElementById('td-name-tr').innerText = nameTr;
+      document.getElementById('td-btn').onclick = (btnEvent) => {
+        openPopup(targetId, '50%', '50%', btnEvent);
+        closePopup('popup-try-project');
+      };
+      openPopup('popup-try-project', '50%', '50%', e);
+    }
+
+    function openPopup(id, defaultLeft = '50%', defaultTop = '50%', sourceEvent = null) {
+      const popup = document.getElementById(id);
+      if (!popup) return;
+
+      if (popup.style.display !== 'flex') {
+        popup.style.display = 'flex';
+
+        if (popup.classList.contains('browser-chrome')) {
+          popup.style.flexDirection = 'column';
+        }
+
+        if (!popup.dataset.initialized) {
+          popup.dataset.initialized = 'true';
+          popup.style.left = defaultLeft;
+          popup.style.top = defaultTop;
+        }
+
+        // Apply exact MacOS Scale effect from the source icon position
+        let endTransform = popup.dataset.dragged ? 'none' : 'translate(-50%, -50%) scale(1)';
+        let startTransform = popup.dataset.dragged ? 'scale(0.8)' : 'translate(-50%, -50%) scale(0.4)';
+
+        if (sourceEvent && sourceEvent.currentTarget) {
+          const rect = sourceEvent.currentTarget.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          let anchorX, anchorY;
+          if (popup.dataset.dragged) {
+            // Find current center of dragged popup
+            anchorX = popup.offsetLeft + popup.offsetWidth / 2;
+            anchorY = popup.offsetTop + popup.offsetHeight / 2;
+            const deltaX = centerX - anchorX;
+            const deltaY = centerY - anchorY;
+            startTransform = `translate(${deltaX}px, ${deltaY}px) scale(0.1)`;
+            endTransform = `translate(0px, 0px) scale(1)`;
+          } else {
+            // offsetLeft and offsetTop naturally give the exact pixel coordinate of left/top
+            anchorX = popup.offsetLeft;
+            anchorY = popup.offsetTop;
+            const deltaX = centerX - anchorX;
+            const deltaY = centerY - anchorY;
+            startTransform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(0.05)`;
+          }
+        }
+
+        popup.style.transform = popup.dataset.dragged ? 'none' : 'translate(-50%, -50%) scale(1)';
+        popup.animate([
+          { transform: startTransform, opacity: 0 },
+          { transform: endTransform, opacity: 1 }
+        ], {
+          duration: 350,
+          easing: 'cubic-bezier(0.2, 0.9, 0.3, 1.1)' // Snappy spring feel
+        });
+      }
+
+      popup.style.zIndex = ++zIndexCounter;
+    }
+
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    document.querySelectorAll('.popup').forEach(popup => {
+      popup.addEventListener('mousedown', () => {
+        popup.style.zIndex = ++zIndexCounter;
       });
     });
-  });
-}
 
-// Popups
-let zIndexCounter = 100;
-let isDraggingPopup = false;
+    // Drag Logic
+    document.querySelectorAll('.window-header').forEach(header => {
+      const popup = header.parentElement;
 
-function launchTryDemo(targetId, nameEn, nameTr, e) {
-  document.getElementById('td-name-en').innerText = nameEn;
-  document.getElementById('td-name-tr').innerText = nameTr;
-  document.getElementById('td-btn').onclick = (btnEvent) => {
-    openPopup(targetId, '50%', '50%', btnEvent);
-    closePopup('popup-try-project');
-  };
-  openPopup('popup-try-project', '50%', '50%', e);
-}
+      header.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('dot')) return;
 
-function openPopup(id, defaultLeft = '50%', defaultTop = '50%', sourceEvent = null) {
-  const popup = document.getElementById(id);
-  if (!popup) return;
-  
-  if (popup.style.display !== 'flex') {
-    popup.style.display = 'flex';
-    
-    if(popup.classList.contains('browser-chrome')) {
-      popup.style.flexDirection = 'column';
-    }
+        isDraggingPopup = true;
+        popup.style.zIndex = ++zIndexCounter;
 
-    if (!popup.dataset.initialized) {
-      popup.dataset.initialized = 'true';
-      popup.style.left = defaultLeft;
-      popup.style.top = defaultTop;
-    }
+        if (!popup.dataset.dragged) {
+          const rect = popup.getBoundingClientRect();
+          popup.style.left = rect.left + 'px';
+          popup.style.top = rect.top + 'px';
+          popup.style.transform = 'none';
+          popup.dataset.dragged = "true";
+        }
 
-    // Apply exact MacOS Scale effect from the source icon position
-    let endTransform = popup.dataset.dragged ? 'none' : 'translate(-50%, -50%) scale(1)';
-    let startTransform = popup.dataset.dragged ? 'scale(0.8)' : 'translate(-50%, -50%) scale(0.4)';
-    
-    if (sourceEvent && sourceEvent.currentTarget) {
-      const rect = sourceEvent.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      let anchorX, anchorY;
-      if (popup.dataset.dragged) {
-        // Find current center of dragged popup
-        anchorX = popup.offsetLeft + popup.offsetWidth / 2;
-        anchorY = popup.offsetTop + popup.offsetHeight / 2;
-        const deltaX = centerX - anchorX;
-        const deltaY = centerY - anchorY;
-        startTransform = `translate(${deltaX}px, ${deltaY}px) scale(0.1)`;
-        endTransform = `translate(0px, 0px) scale(1)`;
-      } else {
-        // offsetLeft and offsetTop naturally give the exact pixel coordinate of left/top
-        anchorX = popup.offsetLeft;
-        anchorY = popup.offsetTop;
-        const deltaX = centerX - anchorX;
-        const deltaY = centerY - anchorY;
-        startTransform = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(0.05)`;
-      }
-    }
+        let startX = e.clientX;
+        let startY = e.clientY;
+        let initialLeft = parseInt(popup.style.left || 0);
+        let initialTop = parseInt(popup.style.top || 0);
 
-    popup.style.transform = popup.dataset.dragged ? 'none' : 'translate(-50%, -50%) scale(1)';
-    popup.animate([
-      { transform: startTransform, opacity: 0 },
-      { transform: endTransform, opacity: 1 }
-    ], {
-      duration: 350,
-      easing: 'cubic-bezier(0.2, 0.9, 0.3, 1.1)' // Snappy spring feel
+        function onMouseMove(me) {
+          popup.style.left = (initialLeft + me.clientX - startX) + 'px';
+          popup.style.top = (initialTop + me.clientY - startY) + 'px';
+        }
+
+        function onMouseUp() {
+          isDraggingPopup = false;
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
     });
-  }
-  
-  popup.style.zIndex = ++zIndexCounter;
-}
 
-function closePopup(id) {
-  document.getElementById(id).style.display = 'none';
-}
+    // Terminal Simulator Logic
+    async function runSimulation(projId, fileObj) {
+      if (!fileObj) return;
+      const filename = fileObj.name;
 
-document.querySelectorAll('.popup').forEach(popup => {
-  popup.addEventListener('mousedown', () => {
-    popup.style.zIndex = ++zIndexCounter;
-  });
-});
+      document.getElementById('upload-box-' + projId).style.display = 'none';
+      const outDiv = document.getElementById('sim-output-' + projId);
+      const logDiv = document.getElementById('sim-log-' + projId);
+      outDiv.style.display = 'block';
+      logDiv.innerHTML = '';
 
-// Drag Logic
-document.querySelectorAll('.window-header').forEach(header => {
-  const popup = header.parentElement;
-  
-  header.addEventListener('mousedown', (e) => {
-    if(e.target.classList.contains('dot')) return;
-    
-    isDraggingPopup = true;
-    popup.style.zIndex = ++zIndexCounter;
-    
-    if (!popup.dataset.dragged) {
-      const rect = popup.getBoundingClientRect();
-      popup.style.left = rect.left + 'px';
-      popup.style.top = rect.top + 'px';
-      popup.style.transform = 'none';
-      popup.dataset.dragged = "true";
-    }
-    
-    let startX = e.clientX;
-    let startY = e.clientY;
-    let initialLeft = parseInt(popup.style.left || 0);
-    let initialTop = parseInt(popup.style.top || 0);
+      if (projId === 4) {
+        await typeWriter("> Uploading " + filename + " to CRNN model...", logDiv, 30);
 
-    function onMouseMove(me) {
-      popup.style.left = (initialLeft + me.clientX - startX) + 'px';
-      popup.style.top = (initialTop + me.clientY - startY) + 'px';
-    }
-    
-    function onMouseUp() {
-      isDraggingPopup = false;
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-    
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-});
+        const formData = new FormData();
+        formData.append('file', fileObj);
 
-// Terminal Simulator Logic
-async function runSimulation(projId, fileObj) {
-  if (!fileObj) return;
-  const filename = fileObj.name;
-  
-  document.getElementById('upload-box-' + projId).style.display = 'none';
-  const outDiv = document.getElementById('sim-output-' + projId);
-  const logDiv = document.getElementById('sim-log-' + projId);
-  outDiv.style.display = 'block';
-  logDiv.innerHTML = '';
-  
-  if (projId === 4) {
-    await typeWriter("> Uploading " + filename + " to CRNN model...", logDiv, 30);
-    
-    const formData = new FormData();
-    formData.append('file', fileObj);
-    
-    const BACKEND_URL = 'http://127.0.0.1:5000'; 
-    
-    try {
-        const response = await fetch(BACKEND_URL + '/api/predict', {
+        const BACKEND_URL = 'https://ilgonikoli-portfolio_backend.hf.space';
+
+        try {
+          const response = await fetch(BACKEND_URL + '/api/predict', {
             method: 'POST',
             body: formData
-        });
-        const data = await response.json();
-        
-        if (data.error) {
+          });
+          const data = await response.json();
+
+          if (data.error) {
             logDiv.innerHTML += `<br><br>> <strong style="color:red;">Error: ${data.error}</strong>`;
             return;
-        }
-        
-        logDiv.innerHTML += '<br><br>> Audio processed. Extracting predictions...';
-        await new Promise(r => setTimeout(r, 600));
-        
-        let predHtml = '<br><br>> Predictions:<br>';
-        data.predictions.forEach((p, idx) => {
-            predHtml += `&nbsp;&nbsp;${idx+1}. <strong style="color:#fff;">${p.class} (${(p.confidence*100).toFixed(2)}%)</strong><br>`;
-        });
-        
-        logDiv.innerHTML += predHtml;
-    } catch (e) {
-        logDiv.innerHTML += `<br><br>> <strong style="color:red;">Sunucuya bağlanılamadı (Flask çalışıyor mu?)</strong>`;
-    }
+          }
 
-  } else if (projId === 5) {
-    await typeWriter("> Uploading " + filename + " to Whisper model...", logDiv, 30);
-    logDiv.innerHTML += '<br><br>> <span style="color:#ffbd2e;">Lütfen bekleyin... Ses dosyasının uzunluğuna göre bu işlem birkaç dakika sürebilir (PyTorch aktif).</span>';
-    
-    const formData = new FormData();
-    formData.append('file', fileObj);
-    
-    // Sunucuyu Vercel'den ayırdığında buraya yeni sunucunun (Render, HuggingFace) adresini yazmalısın.
-    const BACKEND_URL = 'http://127.0.0.1:5000'; 
-    
-    try {
-        const response = await fetch(BACKEND_URL + '/api/transcribe', {
+          logDiv.innerHTML += '<br><br>> Audio processed. Extracting predictions...';
+          await new Promise(r => setTimeout(r, 600));
+
+          let predHtml = '<br><br>> Predictions:<br>';
+          data.predictions.forEach((p, idx) => {
+            predHtml += `&nbsp;&nbsp;${idx + 1}. <strong style="color:#fff;">${p.class} (${(p.confidence * 100).toFixed(2)}%)</strong><br>`;
+          });
+
+          logDiv.innerHTML += predHtml;
+        } catch (e) {
+          logDiv.innerHTML += `<br><br>> <strong style="color:red;">Sunucuya bağlanılamadı (Flask çalışıyor mu?)</strong>`;
+        }
+
+      } else if (projId === 5) {
+        await typeWriter("> Uploading " + filename + " to Whisper model...", logDiv, 30);
+        logDiv.innerHTML += '<br><br>> <span style="color:#ffbd2e;">Lütfen bekleyin... Ses dosyasının uzunluğuna göre bu işlem birkaç dakika sürebilir (PyTorch aktif).</span>';
+
+        const formData = new FormData();
+        formData.append('file', fileObj);
+
+        // Sunucuyu Vercel'den ayırdığında buraya yeni sunucunun (Render, HuggingFace) adresini yazmalısın.
+        const BACKEND_URL = 'http://127.0.0.1:5000';
+
+        try {
+          const response = await fetch(BACKEND_URL + '/api/transcribe', {
             method: 'POST',
             body: formData
-        });
-        const data = await response.json();
-        
-        if (data.error) {
+          });
+          const data = await response.json();
+
+          if (data.error) {
             logDiv.innerHTML += `<br><br>> <strong style="color:red;">Error: ${data.error}</strong>`;
             return;
-        }
-        
-        logDiv.innerHTML += '<br><br>> Model: <span style="color:#ffbd2e;">large-v3</span> | Language: <span style="color:#ffbd2e;">tr</span><br>> Starting speaker diarization...<br>';
-        
-        for (const lineText of data.lines) {
-            const lineEl = document.createElement('div'); 
-            lineEl.style.marginTop = '12px'; 
+          }
+
+          logDiv.innerHTML += '<br><br>> Model: <span style="color:#ffbd2e;">large-v3</span> | Language: <span style="color:#ffbd2e;">tr</span><br>> Starting speaker diarization...<br>';
+
+          for (const lineText of data.lines) {
+            const lineEl = document.createElement('div');
+            lineEl.style.marginTop = '12px';
             logDiv.appendChild(lineEl);
-            
+
             let coloredText = lineText;
             if (lineText.includes('Konuşmacı 1')) coloredText = lineText.replace('Konuşmacı 1', '<span style="color:#ffbd2e;">Konuşmacı 1</span>');
             else if (lineText.includes('Konuşmacı 2')) coloredText = lineText.replace('Konuşmacı 2', '<span style="color:#27c93f;">Konuşmacı 2</span>');
@@ -922,14 +1335,15 @@ async function runSimulation(projId, fileObj) {
 
             await typeWriterHTML(`<strong>${coloredText}</strong>`, lineEl, 15);
             await new Promise(r => setTimeout(r, 400));
+          }
+
+          logDiv.innerHTML += '<br><br>> <strong style="color:#fff;">✓ Transkripsiyon bitti.</strong>';
+        } catch (e) {
+          logDiv.innerHTML += `<br><br>> <strong style="color:red;">Sunucuya bağlanılamadı (Flask çalışıyor mu?)</strong>`;
         }
-        
-        logDiv.innerHTML += '<br><br>> <strong style="color:#fff;">✓ Transkripsiyon bitti.</strong>';
-    } catch (e) {
-        logDiv.innerHTML += `<br><br>> <strong style="color:red;">Sunucuya bağlanılamadı (Flask çalışıyor mu?)</strong>`;
+      }
     }
-  }
-}
-</script>
+  </script>
 </body>
+
 </html>
