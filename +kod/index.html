@@ -44,7 +44,7 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.65);
       pointer-events: none;
-      z-index: 5;
+      z-index: 50; /* Covers scatter items (z:10) but under terminal (z:100) */
       transition: opacity 1.5s ease-out;
     }
 
