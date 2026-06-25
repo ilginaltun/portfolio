@@ -1439,7 +1439,41 @@
           logDiv.innerHTML += `<br><br>> <strong style="color:red;">Sunucuya bağlanılamadı (Flask çalışıyor mu?)</strong>`;
         }
       }
-    }
+    });
+
+    // Maximize logic for green dots
+    document.querySelectorAll('.dot.green').forEach(dot => {
+      dot.style.cursor = 'pointer';
+      dot.addEventListener('click', (e) => {
+        const popup = e.target.closest('.popup');
+        if (!popup) return;
+        
+        if (popup.dataset.maximized === 'true') {
+          // Restore
+          popup.dataset.maximized = 'false';
+          popup.style.width = popup.dataset.oldWidth || '';
+          popup.style.height = popup.dataset.oldHeight || '';
+          popup.style.left = popup.dataset.oldLeft || '50%';
+          popup.style.top = popup.dataset.oldTop || '50%';
+          if (!popup.dataset.dragged) {
+            popup.style.transform = 'translate(-50%, -50%) scale(1)';
+          }
+        } else {
+          // Maximize
+          popup.dataset.maximized = 'true';
+          popup.dataset.oldWidth = popup.style.width;
+          popup.dataset.oldHeight = popup.style.height;
+          popup.dataset.oldLeft = popup.style.left;
+          popup.dataset.oldTop = popup.style.top;
+          
+          popup.style.width = '100vw';
+          popup.style.height = '100vh';
+          popup.style.left = '50%';
+          popup.style.top = '50%';
+          popup.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+      });
+    });
   </script>
 </body>
 
