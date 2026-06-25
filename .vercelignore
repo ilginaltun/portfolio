@@ -1,0 +1,5 @@
+*.py
+requirements.txt
+Dockerfile
+urban_sound_project/
+whisper_project/
