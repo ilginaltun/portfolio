@@ -139,6 +139,7 @@
 
     .dot.yellow {
       background: #ffbd2e;
+      cursor: pointer;
     }
 
     .dot.green {
@@ -151,6 +152,15 @@
       font-size: 14px;
       color: #000;
       font-weight: 500;
+    }
+
+    .minimized {
+      padding-bottom: 0 !important;
+      min-height: 0 !important;
+      height: auto !important;
+    }
+    .minimized > *:not(.window-header) {
+      display: none !important;
     }
 
     /* Phase 1: Terminal */
@@ -686,28 +696,27 @@
         <div class="window-title">projects/</div>
       </div>
       <div class="window-content finder-grid">
-        <div class="finder-item"
-          onclick="launchTryDemo('popup-proj1', 'kadıköy_tamir_ödül', 'kadıköy_tamir_ödül', event)">
+        <div class="finder-item" onclick="openProject(1, event)">
           <img src="blue_folder.png" alt="folder"
             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
           <span class="en">kadıköy_tamir_ödül</span><span class="tr">kadıköy_tamir_ödül</span>
         </div>
-        <div class="finder-item" onclick="launchTryDemo('popup-proj2', 'sonification', 'sonification', event)">
+        <div class="finder-item" onclick="openProject(2, event)">
           <img src="blue_folder.png" alt="folder"
             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
           <span class="en">sonification</span><span class="tr">sonification</span>
         </div>
-        <div class="finder-item" onclick="launchTryDemo('popup-proj3', 'personal_library', 'personal_library', event)">
+        <div class="finder-item" onclick="openProject(3, event)">
           <img src="blue_folder.png" alt="folder"
             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
           <span class="en">personal_library</span><span class="tr">personal_library</span>
         </div>
-        <div class="finder-item" onclick="launchTryDemo('popup-proj4', 'sound_map', 'sound_map', event)">
+        <div class="finder-item" onclick="openProject(4, event)">
           <img src="blue_folder.png" alt="folder"
             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
           <span class="en">sound_map</span><span class="tr">sound_map</span>
         </div>
-        <div class="finder-item" onclick="launchTryDemo('popup-proj5', 'sound_detection', 'sound_detection', event)">
+        <div class="finder-item" onclick="openProject(5, event)">
           <img src="blue_folder.png" alt="folder"
             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5,20 Q5,10 15,10 L35,10 Q40,10 42,15 L48,25 Q50,30 55,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%234ea5ff\'/><path d=\'M5,35 Q5,30 15,30 L85,30 Q95,30 95,40 L95,85 Q95,95 85,95 L15,95 Q5,95 5,85 Z\' fill=\'%237abaff\'/></svg>'">
           <span class="en">sound_detection</span><span class="tr">sound_detection</span>
@@ -834,6 +843,91 @@
         <div id="sim-output-5" style="margin-top: 16px; display: none; font-family: monospace; color: #4af626;">
           <div id="sim-log-5"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- README PROJ 1 -->
+    <div class="popup" id="readme-proj1" style="width: 350px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('readme-proj1')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.md</div>
+      </div>
+      <div class="window-content word-processor" style="padding: 24px; border: 2px solid #000; border-top: none;">
+        <h3 style="margin-top:0;">kadıköy_tamir_ödül</h3>
+        <div class="en">A reward system project developed for Kadıköy Municipality to encourage repair, recycling, and sustainability.</div>
+        <div class="tr">Kadıköy'de tamir, geri dönüşüm ve sürdürülebilirliği teşvik etmek için geliştirilmiş bir ödül sistemi projesi.</div>
+      </div>
+    </div>
+
+    <!-- README PROJ 2 -->
+    <div class="popup" id="readme-proj2" style="width: 350px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('readme-proj2')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.md</div>
+      </div>
+      <div class="window-content word-processor" style="padding: 24px; border: 2px solid #000; border-top: none;">
+        <h3 style="margin-top:0;">sonification</h3>
+        <div class="en">A sensory data analysis and artistic expression project where data is converted into sound.</div>
+        <div class="tr">Verilerin sese dönüştürüldüğü, duyusal bir veri analizi ve sanatsal ifade projesi.</div>
+      </div>
+    </div>
+
+    <!-- README PROJ 3 -->
+    <div class="popup" id="readme-proj3" style="width: 350px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('readme-proj3')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.md</div>
+      </div>
+      <div class="window-content word-processor" style="padding: 24px; border: 2px solid #000; border-top: none;">
+        <h3 style="margin-top:0;">personal_library</h3>
+        <div class="en">A web-based library app developed to track and organize personal reading habits.</div>
+        <div class="tr">Kişisel kitap okuma alışkanlıklarını takip etmek ve organize etmek için geliştirilmiş web tabanlı kütüphane uygulaması.</div>
+      </div>
+    </div>
+
+    <!-- README PROJ 4 -->
+    <div class="popup" id="readme-proj4" style="width: 350px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('readme-proj4')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.md</div>
+      </div>
+      <div class="window-content word-processor" style="padding: 24px; border: 2px solid #000; border-top: none;">
+        <h3 style="margin-top:0;">sound_map</h3>
+        <div class="en">A project that detects and maps environmental sounds in the city using machine learning.</div>
+        <div class="tr">Şehirdeki çevresel sesleri (korna vb.) makine öğrenmesi ile tespit edip haritalandıran sistem.</div>
+      </div>
+    </div>
+
+    <!-- README PROJ 5 -->
+    <div class="popup" id="readme-proj5" style="width: 350px;">
+      <div class="window-header">
+        <div class="window-dots">
+          <div class="dot red" onclick="closePopup('readme-proj5')"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="window-title">README.md</div>
+      </div>
+      <div class="window-content word-processor" style="padding: 24px; border: 2px solid #000; border-top: none;">
+        <h3 style="margin-top:0;">sound_detection</h3>
+        <div class="en">A system that transcribes and analyzes speech using the Whisper AI model.</div>
+        <div class="tr">Whisper yapay zeka modeli kullanılarak konuşmaları yazıya döken (speech-to-text) ve analiz eden araç.</div>
       </div>
     </div>
 
@@ -1261,6 +1355,27 @@
     // Popups
     let zIndexCounter = 100;
     let isDraggingPopup = false;
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('dot') && e.target.classList.contains('yellow')) {
+        const popup = e.target.closest('.popup') || e.target.closest('#intro-terminal');
+        if (popup) {
+          popup.classList.toggle('minimized');
+        }
+      }
+    });
+
+    function openProject(projIndex, e) {
+      if (projIndex >= 4) {
+        // Terminal popups are narrower, open side-by-side
+        openPopup('popup-proj' + projIndex, '35%', '50%', e);
+        setTimeout(() => openPopup('readme-proj' + projIndex, '65%', '50%', e), 100);
+      } else {
+        // Browser popups are wide, stack them slightly
+        openPopup('popup-proj' + projIndex, '50%', '50%', e);
+        setTimeout(() => openPopup('readme-proj' + projIndex, '75%', '50%', e), 100);
+      }
+    }
 
     function launchTryDemo(targetId, nameEn, nameTr, e) {
       document.getElementById('td-name-en').innerText = nameEn;
