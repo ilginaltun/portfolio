@@ -470,9 +470,9 @@
     }
 
     const popupMap = {
-        'how': [{ id: 'popup-how', left: '32vw', top: '24vh' }],
+        'how': [{ id: 'popup-how', left: '34vw', top: '22vh' }],
         'who': [
-          { id: 'popup-about', left: '280px', top: '650px' },
+          { id: 'popup-about', left: '290px', top: '74vh' },
           { id: 'popup-photo', left: '65vw', top: '75vh' }
         ],
         'what': [{ id: 'popup-what', left: '77vw', top: '28vh' }],
