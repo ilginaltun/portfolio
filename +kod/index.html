@@ -915,7 +915,11 @@
 
       if (phase === 1 && termDone) {
         document.getElementById('term-line1').innerHTML = STRINGS[lang].term1;
-        document.getElementById('term-prompt').innerText = STRINGS[lang].term2;
+        if (typeof terminalState !== 'undefined' && terminalState === 'try_again') {
+          document.getElementById('term-prompt').innerText = lang === 'en' ? '> try again? (yes/no): ' : '> tekrar dene? (evet/hayır): ';
+        } else {
+          document.getElementById('term-prompt').innerText = STRINGS[lang].term2;
+        }
       }
     }
 
@@ -1046,25 +1050,63 @@
       termDone = true;
     }, 500);
 
+    let terminalState = 'start';
+    let rainInterval = null;
+
     document.getElementById('term-input').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const val = e.target.value.trim().toLowerCase();
-        if (val === 'no' || val === 'hayır' || val === 'hayir') {
-          handleNo();
-        } else {
-          startPhase2();
+        
+        if (terminalState === 'start') {
+          if (val === 'no' || val === 'hayır' || val === 'hayir') {
+            terminalState = 'try_again';
+            handleNo();
+          } else {
+            startPhase2();
+          }
+        } else if (terminalState === 'try_again') {
+          if (val === 'yes' || val === 'evet') {
+            resetToStart();
+          } else if (val === 'no' || val === 'hayır' || val === 'hayir') {
+            e.target.value = '';
+          } else {
+            resetToStart(); // fallback treat as yes
+          }
         }
       }
     });
+
+    function resetToStart() {
+      terminalState = 'start';
+      if (rainInterval) clearInterval(rainInterval);
+      const rainContainer = document.getElementById('rain-container');
+      if (rainContainer) rainContainer.remove();
+      
+      const overlay = document.getElementById('dark-overlay');
+      overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.65)';
+      overlay.style.zIndex = '5';
+      
+      document.querySelectorAll('.term-history').forEach(el => el.remove());
+      
+      const termPrompt = document.getElementById('term-prompt');
+      termPrompt.innerText = STRINGS[currentLang].term2;
+      const input = document.getElementById('term-input');
+      input.value = '';
+      input.focus();
+    }
 
     function handleNo() {
       const overlay = document.getElementById('dark-overlay');
       overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.92)';
       overlay.style.zIndex = '20';
-      document.getElementById('term-input').disabled = true;
+      
+      const input = document.getElementById('term-input');
+      const termPrompt = document.getElementById('term-prompt');
+      input.disabled = true;
 
       const emojis = ['🥲'];
       const rainContainer = document.createElement('div');
+      rainContainer.id = 'rain-container';
       rainContainer.style.position = 'absolute';
       rainContainer.style.top = '0';
       rainContainer.style.left = '0';
@@ -1076,8 +1118,8 @@
       document.body.appendChild(rainContainer);
 
       let count = 0;
-      const interval = setInterval(() => {
-        if (count > 40) clearInterval(interval);
+      rainInterval = setInterval(() => {
+        if (count > 40) clearInterval(rainInterval);
         count++;
 
         const emoji = document.createElement('div');
@@ -1088,7 +1130,7 @@
         emoji.style.fontSize = (Math.random() * 24 + 20) + 'px';
         emoji.style.opacity = Math.random() * 0.5 + 0.5;
         emoji.style.transition = 'top 4s linear, opacity 4s ease-in';
-
+        
         rainContainer.appendChild(emoji);
 
         setTimeout(() => {
@@ -1100,11 +1142,18 @@
           emoji.remove();
         }, 4050);
       }, 150);
-
+      
       setTimeout(async () => {
-        const termLine2 = document.getElementById('term-line2');
-        termLine2.innerHTML += '<br><br>> :(';
-      }, 500);
+        const history = document.createElement('div');
+        history.className = 'term-history';
+        history.innerHTML = `${termPrompt.innerHTML}${input.value}<br><br>> :(<br><br>`;
+        termPrompt.parentNode.insertBefore(history, termPrompt);
+        
+        termPrompt.innerText = currentLang === 'en' ? '> try again? (yes/no): ' : '> tekrar dene? (evet/hayır): ';
+        input.value = '';
+        input.disabled = false;
+        input.focus();
+      }, 1000);
     }
 
     // Phase 2
@@ -1233,7 +1282,7 @@
     async function useSourceFile(filename) {
       closePopup('popup-sources');
       const targetId = currentSimulationTarget;
-
+      
       // If opened from desktop instead of terminal, we don't have a target
       if (!targetId) {
         alert("Lütfen dosyayı test etmek için önce 'sound_map' veya 'sound_detection' klasörünü açın ve 'Select from sources/' butonuna tıklayın!");
