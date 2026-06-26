@@ -1515,6 +1515,9 @@
           wrapper.style.transform = 'scale(0.1) rotate(360deg)';
         });
 
+        setTimeout(() => {
+          document.getElementById('scatter-container').innerHTML = '';
+          scatterFilesGathered = true;
         }, 2500);
 
       }, 500);
