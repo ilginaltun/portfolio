@@ -237,6 +237,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 450px;
+      max-width: 90vw;
+      box-sizing: border-box;
       background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -431,8 +433,11 @@
       display: none;
       flex-direction: column;
       pointer-events: auto;
+      z-index: 100;
+      max-width: 90vw !important;
+      max-height: 90vh !important;
+      box-sizing: border-box;
       min-width: 300px;
-      max-height: 85vh;
     }
 
     .window-content {
@@ -605,11 +610,24 @@
     #widgets-container {
       position: absolute;
       top: 40px;
-      right: 40px;
+      left: 40px;
       display: none;
       flex-direction: column;
       gap: 24px;
-      z-index: 10;
+      z-index: 100;
+      transition: transform 0.6s cubic-bezier(0.5, 0, 0.2, 1), opacity 0.6s;
+      transform-origin: top left;
+    }
+    #dock-widgets {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #333;
+      cursor: pointer;
+      background: rgba(255,255,255,0.7);
+      border-radius: 12px;
+    }
       pointer-events: auto;
     }
     .widget-row { display: flex; gap: 24px; }
@@ -1237,6 +1255,9 @@
 
     <!-- DOCK -->
     <div id="mac-dock">
+      <div class="dock-item" id="dock-widgets" onclick="toggleWidgetsCentered()">
+        ⚙️
+      </div>
       <div class="dock-item" onclick="showKeepGoing()">
         <img src="blue_folder.png" alt="folder">
         <div id="keep-going-bubble">keep going!</div>
@@ -1548,6 +1569,7 @@
       document.getElementById('mac-dock').style.display = 'flex';
       document.getElementById('widgets-container').style.display = 'flex';
       initWidgets();
+      checkWidgetsResponsive();
 
       // Fade out the dark overlay
       document.getElementById('dark-overlay').style.opacity = '0';
@@ -1735,6 +1757,65 @@
           });
         });
       });
+
+    let widgetsDocked = false;
+    let widgetsCentered = false;
+
+    window.addEventListener('resize', () => {
+      if (phase !== 2) return;
+      checkWidgetsResponsive();
+    });
+
+    function checkWidgetsResponsive() {
+      const container = document.getElementById('widgets-container');
+      const dockGear = document.getElementById('dock-widgets');
+      
+      if (window.innerWidth < 1100 && !widgetsDocked && !widgetsCentered) {
+        widgetsDocked = true;
+        // Move to dock
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight - 40;
+        const startX = 40 + container.offsetWidth / 2;
+        const startY = 40 + container.offsetHeight / 2;
+        container.style.transform = `translate(${cx - startX}px, ${cy - startY}px) scale(0.1)`;
+        container.style.opacity = '0';
+        container.style.pointerEvents = 'none';
+        
+        setTimeout(() => { dockGear.style.display = 'flex'; }, 400);
+      } else if (window.innerWidth >= 1100 && widgetsDocked) {
+        widgetsDocked = false;
+        widgetsCentered = false;
+        dockGear.style.display = 'none';
+        container.style.transform = 'translate(0px, 0px) scale(1)';
+        container.style.opacity = '1';
+        container.style.pointerEvents = 'auto';
+      }
+    }
+
+    function toggleWidgetsCentered() {
+      const container = document.getElementById('widgets-container');
+      if (widgetsCentered) {
+        // Dock again
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight - 40;
+        const startX = 40 + container.offsetWidth / 2;
+        const startY = 40 + container.offsetHeight / 2;
+        container.style.transform = `translate(${cx - startX}px, ${cy - startY}px) scale(0.1)`;
+        container.style.opacity = '0';
+        container.style.pointerEvents = 'none';
+        widgetsCentered = false;
+      } else {
+        // Pop to center
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const startX = 40 + container.offsetWidth / 2;
+        const startY = 40 + container.offsetHeight / 2;
+        container.style.transform = `translate(${cx - startX}px, ${cy - startY}px) scale(1)`;
+        container.style.opacity = '1';
+        container.style.pointerEvents = 'auto';
+        widgetsCentered = true;
+      }
+    }
 
     // Popups
     let zIndexCounter = 100;
