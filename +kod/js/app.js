@@ -47,7 +47,13 @@
       'video.mp4', 'audio.wav', 'script.sh', 'deploy.yaml', 'auth.js', 'api.py', 'routes.js', 'styles.scss', 'index.tsx', 'app.tsx',
       'Component.jsx', 'hooks.js', 'store.js', 'reducers.js', 'actions.js', 'types.ts', 'interfaces.ts', 'tsconfig.json', 'webpack.config.js', 'babel.config.json',
       'jest.config.js', 'setupTests.js', 'eslint.config.js', 'prettierrc.json', '.gitignore', '.env', 'logs.txt', 'error.log', 'access.log', 'yarn.lock',
-      'npm-debug.log', 'Pipfile', 'requirements.txt', 'manage.py', 'settings.py', 'urls.py', 'wsgi.py', 'asgi.py', 'models.py', 'views.py'
+      'npm-debug.log', 'Pipfile', 'requirements.txt', 'manage.py', 'settings.py', 'urls.py', 'wsgi.py', 'asgi.py', 'models.py', 'views.py',
+      'admin.py', 'forms.py', 'tests.py', 'serializers.py', 'permissions.py', 'decorators.py', 'middleware.py', 'signals.py', 'apps.py', 'tasks.py',
+      'celery.py', 'worker.js', 'service-worker.js', 'manifest.json', 'robots.txt', 'sitemap.xml', 'favicon.ico', 'apple-touch-icon.png', 'browserconfig.xml', 'site.webmanifest',
+      'mixins.scss', 'variables.scss', 'functions.scss', 'reset.css', 'normalize.css', 'typography.css', 'grid.css', 'layout.css', 'components.css', 'utilities.css',
+      'Button.tsx', 'Input.tsx', 'Modal.tsx', 'Dropdown.tsx', 'Tooltip.tsx', 'Card.tsx', 'Avatar.tsx', 'Badge.tsx', 'Spinner.tsx', 'Toast.tsx',
+      'useFetch.js', 'useAuth.js', 'useTheme.js', 'useLocalStorage.js', 'useWindowSize.js', 'useDebounce.js', 'useThrottle.js', 'usePrevious.js', 'useClickOutside.js', 'useInterval.js',
+      'Home.jsx', 'About.jsx', 'Contact.jsx', 'Login.jsx', 'Register.jsx', 'Dashboard.jsx', 'Profile.jsx', 'Settings.jsx', 'NotFound.jsx', 'Error.jsx'
     ];
     const scatterContainer = document.getElementById('scatter-container');
 
