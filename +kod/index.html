@@ -1770,7 +1770,7 @@
       const container = document.getElementById('widgets-container');
       const dockGear = document.getElementById('dock-widgets');
       
-      if (window.innerWidth < 1100 && !widgetsDocked && !widgetsCentered) {
+      if (window.innerWidth < 768 && !widgetsDocked && !widgetsCentered) {
         widgetsDocked = true;
         // Move to dock
         const cx = window.innerWidth / 2;
@@ -1782,7 +1782,7 @@
         container.style.pointerEvents = 'none';
         
         setTimeout(() => { dockGear.style.display = 'flex'; }, 400);
-      } else if (window.innerWidth >= 1100 && widgetsDocked) {
+      } else if (window.innerWidth >= 768 && widgetsDocked) {
         widgetsDocked = false;
         widgetsCentered = false;
         dockGear.style.display = 'none';
