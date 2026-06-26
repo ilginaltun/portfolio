@@ -1063,7 +1063,7 @@
       overlay.style.zIndex = '20';
       document.getElementById('term-input').disabled = true;
 
-      const emojis = ['😢', '😭', '💔', '😔', '🥺', '🌧️', '⛈️', '😿'];
+      const emojis = ['🥲'];
       const rainContainer = document.createElement('div');
       rainContainer.style.position = 'absolute';
       rainContainer.style.top = '0';
@@ -1088,7 +1088,7 @@
         emoji.style.fontSize = (Math.random() * 24 + 20) + 'px';
         emoji.style.opacity = Math.random() * 0.5 + 0.5;
         emoji.style.transition = 'top 4s linear, opacity 4s ease-in';
-        
+
         rainContainer.appendChild(emoji);
 
         setTimeout(() => {
@@ -1100,7 +1100,7 @@
           emoji.remove();
         }, 4050);
       }, 150);
-      
+
       setTimeout(async () => {
         const termLine2 = document.getElementById('term-line2');
         termLine2.innerHTML += '<br><br>> :(';
@@ -1233,7 +1233,7 @@
     async function useSourceFile(filename) {
       closePopup('popup-sources');
       const targetId = currentSimulationTarget;
-      
+
       // If opened from desktop instead of terminal, we don't have a target
       if (!targetId) {
         alert("Lütfen dosyayı test etmek için önce 'sound_map' veya 'sound_detection' klasörünü açın ve 'Select from sources/' butonuna tıklayın!");
