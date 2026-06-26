@@ -457,8 +457,7 @@
     }
 
     #popup-about {
-      width: 1000px;
-      max-width: 95vw;
+      width: 500px;
     }
 
     #popup-about .word-processor {
