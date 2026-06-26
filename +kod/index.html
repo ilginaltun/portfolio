@@ -1636,6 +1636,7 @@
       updateClock();
 
       // Calendar
+      const initialD = new Date();
       const months = ['OCAK','ŞUBAT','MART','NİSAN','MAYIS','HAZİRAN','TEMMUZ','AĞUSTOS','EYLÜL','EKİM','KASIM','ARALIK'];
       document.getElementById('cal-month').innerText = months[initialD.getMonth()];
       const firstDay = new Date(initialD.getFullYear(), initialD.getMonth(), 1).getDay();
