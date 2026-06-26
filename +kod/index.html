@@ -438,6 +438,7 @@
       max-height: 90vh !important;
       box-sizing: border-box;
       min-width: 300px;
+      overflow: hidden;
     }
 
     .window-content {
@@ -1738,14 +1739,14 @@
     }
 
     const popupMap = {
-        'how': [{ id: 'popup-how', left: '16vw', top: '25vh' }],
+        'how': [{ id: 'popup-how', left: '28vw', top: '25vh' }],
         'who': [
-          { id: 'popup-about', left: '22vw', top: '60vh' },
-          { id: 'popup-photo', left: '50vw', top: '75vh' }
+          { id: 'popup-about', left: '28vw', top: '70vh' },
+          { id: 'popup-photo', left: '65vw', top: '75vh' }
         ],
-        'what': [{ id: 'popup-what', left: '74vw', top: '25vh' }],
-        'contact': [{ id: 'popup-contact', left: '80vw', top: '70vh' }],
-        'sources': [{ id: 'popup-sources', left: '50vw', top: '25vh' }]
+        'what': [{ id: 'popup-what', left: '77vw', top: '28vh' }],
+        'contact': [{ id: 'popup-contact', left: '85vw', top: '85vh' }],
+        'sources': [{ id: 'popup-sources', left: '85vw', top: '60vh' }]
       };
 
       document.querySelectorAll('.folder-wrapper').forEach(folder => {
@@ -1927,8 +1928,13 @@
 
         if (!popup.dataset.initialized) {
           popup.dataset.initialized = 'true';
-          popup.style.left = defaultLeft;
-          popup.style.top = defaultTop;
+          if (window.innerWidth < 768) {
+            popup.style.left = '50%';
+            popup.style.top = '50%';
+          } else {
+            popup.style.left = defaultLeft;
+            popup.style.top = defaultTop;
+          }
         }
 
         // Apply exact MacOS Scale effect from the source icon position
