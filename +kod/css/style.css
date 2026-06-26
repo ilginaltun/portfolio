@@ -457,7 +457,12 @@
     }
 
     #popup-about {
-      width: 500px;
+      width: 648px;
+    }
+
+    #popup-how {
+      width: 280px;
+      height: 344px;
     }
 
     #popup-about .word-processor {
